@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="a6PXcE" name="PureWaveShaper" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="NoiseRoomUIO"
+              companyWebsite="www.jhonatanlopez.com" pluginDesc="No traditional HPF"
+              pluginVST3Category="Filter">
+  <MAINGROUP id="RAfSwj" name="PureWaveShaper">
+    <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="cdxPfw" name="TriangleWave.cpp" compile="1" resource="0"
+            file="Source/DSP/TriangleWave.cpp"/>
+      <FILE id="VDP5bj" name="TriangleWave.h" compile="0" resource="0" file="Source/DSP/TriangleWave.h"/>
+      <FILE id="lHiD4g" name="SquareWave.cpp" compile="1" resource="0" file="Source/DSP/SquareWave.cpp"/>
+      <FILE id="blvPWP" name="SquareWave.h" compile="0" resource="0" file="Source/DSP/SquareWave.h"/>
+      <FILE id="td383L" name="SineWave.cpp" compile="1" resource="0" file="Source/DSP/SineWave.cpp"/>
+      <FILE id="xDsztC" name="SineWave.h" compile="0" resource="0" file="Source/DSP/SineWave.h"/>
+      <FILE id="Zztv3U" name="MorphLFO.cpp" compile="1" resource="0" file="Source/DSP/MorphLFO.cpp"/>
+      <FILE id="WSI0SV" name="MorphLFO.h" compile="0" resource="0" file="Source/DSP/MorphLFO.h"/>
+      <FILE id="GgDQoC" name="AmpModulation.cpp" compile="1" resource="0"
+            file="Source/DSP/AmpModulation.cpp"/>
+      <FILE id="MtxpB1" name="AmpModulation.h" compile="0" resource="0" file="Source/DSP/AmpModulation.h"/>
+      <FILE id="ayW2EY" name="LFO.cpp" compile="1" resource="0" file="Source/DSP/LFO.cpp"/>
+      <FILE id="hwOtgG" name="LFO.h" compile="0" resource="0" file="Source/DSP/LFO.h"/>
+      <FILE id="JnEsdL" name="Pan_sineLaw_modified.cpp" compile="1" resource="0"
+            file="Source/DSP/Pan_sineLaw_modified.cpp"/>
+      <FILE id="LdHKjJ" name="Pan_sineLaw_modified.h" compile="0" resource="0"
+            file="Source/DSP/Pan_sineLaw_modified.h"/>
+      <FILE id="MtFSdG" name="Pan_sqrt_modified.cpp" compile="1" resource="0"
+            file="Source/DSP/Pan_sqrt_modified.cpp"/>
+      <FILE id="q8ZVMW" name="Pan_sqrt_modified.h" compile="0" resource="0"
+            file="Source/DSP/Pan_sqrt_modified.h"/>
+      <FILE id="URDcU5" name="Pan_sineLaw.cpp" compile="1" resource="0" file="Source/DSP/Pan_sineLaw.cpp"/>
+      <FILE id="DUbZkg" name="Pan_sineLaw.h" compile="0" resource="0" file="Source/DSP/Pan_sineLaw.h"/>
+      <FILE id="isd9kX" name="Pan_sqrt.cpp" compile="1" resource="0" file="Source/DSP/Pan_sqrt.cpp"/>
+      <FILE id="WEbVjj" name="Pan_sqrt.h" compile="0" resource="0" file="Source/DSP/Pan_sqrt.h"/>
+      <FILE id="RImoJ9" name="Pan_linear.cpp" compile="1" resource="0" file="Source/DSP/Pan_linear.cpp"/>
+      <FILE id="EzEBNX" name="Pan_linear.h" compile="0" resource="0" file="Source/DSP/Pan_linear.h"/>
+      <FILE id="UOWWnC" name="Pan.cpp" compile="1" resource="0" file="Source/DSP/Pan.cpp"/>
+      <FILE id="zd4bv8" name="Pan.h" compile="0" resource="0" file="Source/DSP/Pan.h"/>
+      <FILE id="Vezwux" name="Input.cpp" compile="1" resource="0" file="Source/DSP/Input.cpp"/>
+      <FILE id="AOAQQP" name="Input.h" compile="0" resource="0" file="Source/DSP/Input.h"/>
+    </GROUP>
+    <GROUP id="{A9A565A0-7ABA-CB6F-C4CF-F062863A1209}" name="Source">
+      <FILE id="X3mbbr" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="X2wQz2" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="EDB8AV" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="HVqXRW" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="PureWaveShaper" enablePluginBinaryCopyStep="1"
+                       vst3BinaryLocation="C:\Program Files\Common Files\VST3"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="PureWaveShaper" enablePluginBinaryCopyStep="1"
+                       vst3BinaryLocation="C:\Program Files\Common Files\VST3"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../JUCE/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
