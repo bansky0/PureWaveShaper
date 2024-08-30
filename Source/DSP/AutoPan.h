@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    MorphLFO.h
-    Created: 28 Aug 2024 9:52:53am
+    AutoPan.h
+    Created: 30 Aug 2024 12:13:48pm
     Author:  Jhonatan
 
   ==============================================================================
@@ -11,24 +11,28 @@
 #pragma once
 #include <JuceHeader.h>
 
-class MorphLfo
+class AutoPan
 {
 public:
-    void setShape(float inShapeValue);
     void setDepth(float inDepthValue);
-    void setFrequency(double inFrequecy);
+    void setSpeed(float inSpeedValue);
+
     void prepare(double theSampleRate);
+
     void process(juce::AudioBuffer<float>& buffer);
 
-	MorphLfo();
-	~MorphLfo();
+	AutoPan();
+	~AutoPan();
 
 private:
-    float shapeValue{ 0.0f };//Values 0-10
-    float frequency{ 100.0f };//0-20
-    float depthValue{ 1.0f }; //0-100
-    float sampleRate{ 44100 };
-    float time[2]{};
-    float deltaTime[2]{};
+    float pi{ juce::MathConstants<float>::pi };
+    float time[2];
+    float deltTime[2];
+    float sampleRate{ 44100.0f };
+
+    //Tremolo parameters
+    float depthValue{ 0 };//0-100
+    float speedValue{ 5.0 };//0-20
 
 };
+

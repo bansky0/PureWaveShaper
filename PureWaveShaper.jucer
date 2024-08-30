@@ -6,6 +6,13 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="Mru0zm" name="AutoPan.cpp" compile="1" resource="0" file="Source/DSP/AutoPan.cpp"/>
+      <FILE id="cJBAZL" name="AutoPan.h" compile="0" resource="0" file="Source/DSP/AutoPan.h"/>
+      <FILE id="jnBgeX" name="MorphWave.cpp" compile="1" resource="0" file="Source/DSP/MorphWave.cpp"/>
+      <FILE id="D2dVQT" name="MorphWave.h" compile="0" resource="0" file="Source/DSP/MorphWave.h"/>
+      <FILE id="gBS7Bu" name="SawtoothWave.cpp" compile="1" resource="0"
+            file="Source/DSP/SawtoothWave.cpp"/>
+      <FILE id="ajD1DZ" name="SawtoothWave.h" compile="0" resource="0" file="Source/DSP/SawtoothWave.h"/>
       <FILE id="cdxPfw" name="TriangleWave.cpp" compile="1" resource="0"
             file="Source/DSP/TriangleWave.cpp"/>
       <FILE id="VDP5bj" name="TriangleWave.h" compile="0" resource="0" file="Source/DSP/TriangleWave.h"/>

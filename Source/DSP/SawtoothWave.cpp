@@ -1,20 +1,20 @@
 /*
   ==============================================================================
 
-    SquareWave.cpp
-    Created: 28 Aug 2024 2:25:56pm
+    SawtoothWave.cpp
+    Created: 29 Aug 2024 4:38:15pm
     Author:  Jhonatan
 
   ==============================================================================
 */
 
-#include "SquareWave.h"
-void SquareWave::setFrequency(double inFrequency)
+#include "SawtoothWave.h"
+void SawtoothWave::setFrequency(double inFrequecy)
 {
-    frequency = inFrequency;
+    frequency = inFrequecy;
 }
 
-void SquareWave::prepare(double theSampleRate)
+void SawtoothWave::prepare(double theSampleRate)
 {
     sampleRate = static_cast<float>(theSampleRate);
 
@@ -25,37 +25,33 @@ void SquareWave::prepare(double theSampleRate)
     }
 }
 
-void SquareWave::process(juce::AudioBuffer<float>& buffer)
+void SawtoothWave::process(juce::AudioBuffer<float>& buffer)
 {
     for (int channel = 0; channel < buffer.getNumChannels(); channel++)
     {
         for (int i = 0; i < buffer.getNumSamples(); i++)
         {
-            float fullPeriodTime = 1.0f / frequency;
-            float halfPeriodTime = fullPeriodTime / 2.0f;
-            float localTime = fmod(time[channel], fullPeriodTime);
             float outSample = 0.0f;
 
-            if (localTime < halfPeriodTime)
-                outSample = 1.0f;
-            else
-                outSample = 0.0f;
+            float fullPeriodTime = 1.0f / frequency;
+            float localTime = fmod(time[channel], fullPeriodTime);
+
+            outSample = (localTime / fullPeriodTime) * 2.0f - 1.0f;
+
             buffer.setSample(channel, i, outSample);
 
             time[channel] += deltaTime[channel];
 
             if (time[channel] >= 1.0f)
                 time[channel] = 0.0f;
-
         }
     }
-
 }
 
-SquareWave::SquareWave()
+SawtoothWave::SawtoothWave()
 {
 }
 
-SquareWave::~SquareWave()
+SawtoothWave::~SawtoothWave()
 {
 }

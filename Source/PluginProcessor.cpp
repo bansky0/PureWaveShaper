@@ -53,7 +53,14 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterBool>(juce::ParameterID{ "ampModulationState", 1 }, "AmpModulationState", true));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "sineWave", 1 }, "SineWave", 20.0f, 400.0f, 100.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "squareWave", 1 }, "SquareWave", 20.0f, 400.0f, 100.0f));
-
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "triangleWave", 1 }, "TriangleWave", 20.0f, 400.0f, 100.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "sawtoothWave", 1 }, "SawtoothWave", 20.0f, 400.0f, 100.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphLFO", 1 }, "MorphLFO", 1.0f, 20.0f, 3.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphShape", 1 }, "MorphShape", 1.0f, 10.0f, 5.0f)); //used for MorphWave
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphWave", 1 }, "MorphWave", 20.0f, 1000.0f, 5.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "depthPan", 1 }, "DepthPan", 0.0f, 100.0f, 50.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "speedPan", 1 }, "SpeedPan", 0.0f, 20.0f, 3.0f));
+    
     return parameters;
 }
 
@@ -126,6 +133,11 @@ void PureWaveShaperAudioProcessor::prepareToPlay (double sampleRate, int samples
     ampModulation.prepare(sampleRate);
     sineWave.prepare(sampleRate);
     squareWave.prepare(sampleRate);
+    triangleWave.prepare(sampleRate);
+    sawtoothWave.prepare(sampleRate);
+    morphLFO.prepare(sampleRate);
+    morphWave.prepare(sampleRate);
+    autoPan.prepare(sampleRate);
 }
 
 void PureWaveShaperAudioProcessor::releaseResources()
@@ -171,11 +183,19 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     float inPanSineLawModifiedParameter = *apvts.getRawParameterValue("panSineLawModified");
     float inRateParameter = *apvts.getRawParameterValue("rate");
     bool inLfoStateParameter = *apvts.getRawParameterValue("lfoState");
-    float inDepthValue = *apvts.getRawParameterValue("depth");
+    float inDepthValue = *apvts.getRawParameterValue("depth");//using to ampmod and mophLFO
     float inSpeedValue = *apvts.getRawParameterValue("speed");
     bool inAmpModulationStateParameter = *apvts.getRawParameterValue("ampModulationState");
     float inSineWaveValue = *apvts.getRawParameterValue("sineWave");
     float inSquareWaveValue = *apvts.getRawParameterValue("squareWave");
+    float inTriangleWaveValue = *apvts.getRawParameterValue("triangleWave");
+    float inSawtoothWaveValue = *apvts.getRawParameterValue("sawtoothWave");
+    float inMorphLFOValue = *apvts.getRawParameterValue("morphLFO");
+    float inMorphShapeValue = *apvts.getRawParameterValue("morphShape");
+    float inMorphWaveValue = *apvts.getRawParameterValue("morphWave");
+    float inAutoPanDepthValue = *apvts.getRawParameterValue("depthPan");
+    float inAutoPanSpeedValue = *apvts.getRawParameterValue("speedPan");
+
 
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
@@ -191,6 +211,15 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     ampModulationState = inAmpModulationStateParameter;
     sineWave.setFrequency(inSineWaveValue);
     squareWave.setFrequency(inSquareWaveValue);
+    triangleWave.setFrequency(inTriangleWaveValue);
+    sawtoothWave.setFrequency(inSawtoothWaveValue);
+    morphLFO.setFrequency(inMorphLFOValue);
+    morphLFO.setShape(inMorphShapeValue);
+    morphLFO.setDepth(inDepthValue);
+    morphWave.setShape(inMorphShapeValue);
+    morphWave.setFrequency(inMorphWaveValue);
+    autoPan.setDepth(inAutoPanDepthValue);
+    autoPan.setSpeed(inAutoPanSpeedValue);
 }
 
 void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
@@ -206,7 +235,12 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //panSineLawModified.process(buffer);
     //sineWave.process(buffer);
     //squareWave.process(buffer);
-    
+    //triangleWave.process(buffer);
+    //sawtoothWave.process(buffer);
+    //morphLFO.process(buffer);
+    //morphWave.process(buffer);
+    autoPan.process(buffer);
+
     //if (lfoState)
     //    lfo.process(buffer);
     //if (ampModulationState)

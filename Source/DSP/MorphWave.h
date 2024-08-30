@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    SquareWave.h
-    Created: 28 Aug 2024 2:25:56pm
+    MorphWave.h
+    Created: 30 Aug 2024 11:25:40am
     Author:  Jhonatan
 
   ==============================================================================
@@ -11,21 +11,23 @@
 #pragma once
 #include <JuceHeader.h>
 
-class SquareWave
+class MorphWave
 {
 public:
-    void setFrequency(double inFrequency);
 
+    void setShape(float inShapeValue);
+    void setFrequency(double inFrequecy);
     void prepare(double theSampleRate);
-
     void process(juce::AudioBuffer<float>& buffer);
 
-	SquareWave();
-	~SquareWave();
+    MorphWave();
+	~MorphWave();
 
 private:
-    float frequency{ 0.0f };
+    float shapeValue{ 0.0f };//Values 0-10
+    float frequency{ 100.0f };//0-20
     float sampleRate{ 44100 };
     float time[2]{};
     float deltaTime[2]{};
+
 };

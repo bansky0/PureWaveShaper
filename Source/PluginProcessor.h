@@ -20,6 +20,11 @@
 #include "DSP/AmpModulation.h"
 #include "DSP/SineWave.h"
 #include "DSP/SquareWave.h"
+#include "DSP/TriangleWave.h"
+#include "DSP/SawtoothWave.h"
+#include "DSP/MorphLFO.h"
+#include "DSP/MorphWave.h"
+#include "DSP/AutoPan.h"
 
 //==============================================================================
 /**
@@ -84,5 +89,11 @@ private:
     bool ampModulationState{ false };
     SineWave sineWave;
     SquareWave squareWave;
+    TriangleWave triangleWave;
+    SawtoothWave sawtoothWave;
+    MorphLfo morphLFO;
+    MorphWave morphWave;
+    AutoPan autoPan;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };
