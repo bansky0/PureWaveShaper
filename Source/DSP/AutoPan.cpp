@@ -42,7 +42,7 @@ void AutoPan::process(juce::AudioBuffer<float>& buffer)
             float phi = 0.0f;
             float f = speedValue;
 
-            float sw = sinf(2.0f * pi * f * time[channel] + phi);
+            float sw = sinf(2.0f * pi * f * time[channel] + phi); //100 * sinf(2 * pi * f * time[channel]);
 
             float mod = (amplitud * sw) + offset;
 

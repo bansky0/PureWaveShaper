@@ -60,7 +60,13 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphWave", 1 }, "MorphWave", 20.0f, 1000.0f, 5.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "depthPan", 1 }, "DepthPan", 0.0f, 100.0f, 50.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "speedPan", 1 }, "SpeedPan", 0.0f, 20.0f, 3.0f));
-    
+    parameters.add(std::make_unique<juce::AudioParameterBool>(juce::ParameterID{ "midSide", 1 }, "MidSide", false));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "stereoImagerWidth", 1 }, "StereoImagerWidth", 0.1f, 2.0f, 1.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "hardClip", 1 }, "HardClip", juce::NormalisableRange<float>(-42.0f, 0.0f, 0.01f), 0.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "cubicDistortion", 1 }, "CubicDistortion", 0.0f, 1.0f, 0.01f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "arctangentDistortion", 1 }, "ArctangentDistortion", 1.0f, 10.0f, 0.5f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "sineDistortion", 1 }, "sineDistortion", 1.0f, 4.0f, 1.0f));
+
     return parameters;
 }
 
@@ -195,7 +201,12 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     float inMorphWaveValue = *apvts.getRawParameterValue("morphWave");
     float inAutoPanDepthValue = *apvts.getRawParameterValue("depthPan");
     float inAutoPanSpeedValue = *apvts.getRawParameterValue("speedPan");
-
+    bool inMidSideState = *apvts.getRawParameterValue("midSide");
+    float inStereoImagerWidthValue = *apvts.getRawParameterValue("stereoImagerWidth");
+    float inHardClipThreshValue = *apvts.getRawParameterValue("hardClip");
+    float inCubicDistortionDriveValue = *apvts.getRawParameterValue("cubicDistortion");
+    float inArctangtDistortionValue = *apvts.getRawParameterValue("arctangentDistortion");
+    float inSineDistortionValue = *apvts.getRawParameterValue("sineDistortion");
 
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
@@ -220,6 +231,12 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     morphWave.setFrequency(inMorphWaveValue);
     autoPan.setDepth(inAutoPanDepthValue);
     autoPan.setSpeed(inAutoPanSpeedValue);
+    midSideState = inMidSideState;
+    stereoImager.setStereoImagerValue(inStereoImagerWidthValue);
+    hardClip.setHardClipThresh(inHardClipThreshValue);
+    cubicDistortion.setCubicDistortionDrive(inCubicDistortionDriveValue);
+    arctangenteDistortion.setArctangentDistortionDrive(inArctangtDistortionValue);
+    sineDistortion.setSineDistortionValue(inSineDistortionValue);
 }
 
 void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
@@ -239,8 +256,18 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //sawtoothWave.process(buffer);
     //morphLFO.process(buffer);
     //morphWave.process(buffer);
-    autoPan.process(buffer);
+    //autoPan.process(buffer);
+    //infinitClip.process(buffer);
+    //halfWaveRectification.process(buffer);
 
+    if (midSideState)
+        //    midSide.process(buffer);
+        //    stereoImager.process(buffer);
+        //fullWaveRectification.process(buffer);
+        //hardClip.process(buffer);
+        //cubicDistortion.process(buffer);
+        //arctangenteDistortion.process(buffer);
+        sineDistortion.process(buffer);
     //if (lfoState)
     //    lfo.process(buffer);
     //if (ampModulationState)

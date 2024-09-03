@@ -6,6 +6,36 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="b2QPF8" name="SineDistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/SineDistortion.cpp"/>
+      <FILE id="xAqIfm" name="SineDistortion.h" compile="0" resource="0"
+            file="Source/DSP/SineDistortion.h"/>
+      <FILE id="tPB1jI" name="ArctangentDistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/ArctangentDistortion.cpp"/>
+      <FILE id="wXofFx" name="ArctangentDistortion.h" compile="0" resource="0"
+            file="Source/DSP/ArctangentDistortion.h"/>
+      <FILE id="qWNGyC" name="CubicDistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/CubicDistortion.cpp"/>
+      <FILE id="tNUrFO" name="CubicDistortion.h" compile="0" resource="0"
+            file="Source/DSP/CubicDistortion.h"/>
+      <FILE id="o87fWw" name="HardClip.cpp" compile="1" resource="0" file="Source/DSP/HardClip.cpp"/>
+      <FILE id="ytPJQU" name="HardClip.h" compile="0" resource="0" file="Source/DSP/HardClip.h"/>
+      <FILE id="IcxYeA" name="FullWaveRectification.cpp" compile="1" resource="0"
+            file="Source/DSP/FullWaveRectification.cpp"/>
+      <FILE id="bTFd6U" name="FullWaveRectification.h" compile="0" resource="0"
+            file="Source/DSP/FullWaveRectification.h"/>
+      <FILE id="GrcnqG" name="HalfWaveRectification.cpp" compile="1" resource="0"
+            file="Source/DSP/HalfWaveRectification.cpp"/>
+      <FILE id="Z5yirr" name="HalfWaveRectification.h" compile="0" resource="0"
+            file="Source/DSP/HalfWaveRectification.h"/>
+      <FILE id="jYMKnx" name="Infiniteclip.cpp" compile="1" resource="0"
+            file="Source/DSP/Infiniteclip.cpp"/>
+      <FILE id="enZo1I" name="Infiniteclip.h" compile="0" resource="0" file="Source/DSP/Infiniteclip.h"/>
+      <FILE id="DcXsTA" name="StereoImager.cpp" compile="1" resource="0"
+            file="Source/DSP/StereoImager.cpp"/>
+      <FILE id="VmIGnv" name="StereoImager.h" compile="0" resource="0" file="Source/DSP/StereoImager.h"/>
+      <FILE id="HtR0df" name="MidSide.cpp" compile="1" resource="0" file="Source/DSP/MidSide.cpp"/>
+      <FILE id="gCxcs3" name="MidSide.h" compile="0" resource="0" file="Source/DSP/MidSide.h"/>
       <FILE id="Mru0zm" name="AutoPan.cpp" compile="1" resource="0" file="Source/DSP/AutoPan.cpp"/>
       <FILE id="cJBAZL" name="AutoPan.h" compile="0" resource="0" file="Source/DSP/AutoPan.h"/>
       <FILE id="jnBgeX" name="MorphWave.cpp" compile="1" resource="0" file="Source/DSP/MorphWave.cpp"/>

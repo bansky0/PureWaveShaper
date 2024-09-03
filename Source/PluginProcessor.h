@@ -25,6 +25,15 @@
 #include "DSP/MorphLFO.h"
 #include "DSP/MorphWave.h"
 #include "DSP/AutoPan.h"
+#include "DSP/MidSide.h"
+#include "DSP/StereoImager.h"
+#include "DSP/Infiniteclip.h"
+#include "DSP/HalfWaveRectification.h"
+#include "DSP/FullWaveRectification.h"
+#include "DSP/HardClip.h"
+#include "DSP/CubicDistortion.h"
+#include "DSP/ArctangentDistortion.h"
+#include "DSP/SineDistortion.h"
 
 //==============================================================================
 /**
@@ -94,6 +103,16 @@ private:
     MorphLfo morphLFO;
     MorphWave morphWave;
     AutoPan autoPan;
+    MidSide midSide;
+    bool midSideState{ false };
+    StereoImager stereoImager;
+    InfiniteClip infinitClip;
+    HalfWaveRectification halfWaveRectification;
+    FullWaveRectification fullWaveRectification;
+    HardClip hardClip;
+    CubicDistortion cubicDistortion;
+    ArctangentDistortion arctangenteDistortion;
+    SineDistortion sineDistortion;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };
