@@ -66,6 +66,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "cubicDistortion", 1 }, "CubicDistortion", 0.0f, 1.0f, 0.01f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "arctangentDistortion", 1 }, "ArctangentDistortion", 1.0f, 10.0f, 0.5f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "sineDistortion", 1 }, "sineDistortion", 1.0f, 4.0f, 1.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "exponentialDistortion", 1 }, "ExponentialDistortion", 1.0f, 10.0f, 1.0f));
 
     return parameters;
 }
@@ -207,7 +208,7 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     float inCubicDistortionDriveValue = *apvts.getRawParameterValue("cubicDistortion");
     float inArctangtDistortionValue = *apvts.getRawParameterValue("arctangentDistortion");
     float inSineDistortionValue = *apvts.getRawParameterValue("sineDistortion");
-
+    float inExponentialDistortion = *apvts.getRawParameterValue("exponentialDistortion");
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
     panLinear.setPanLinearValue(inPanLinearParameter);
@@ -237,6 +238,7 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     cubicDistortion.setCubicDistortionDrive(inCubicDistortionDriveValue);
     arctangenteDistortion.setArctangentDistortionDrive(inArctangtDistortionValue);
     sineDistortion.setSineDistortionValue(inSineDistortionValue);
+    exponentialDistortion.setExponentialDistortionValue(inExponentialDistortion);
 }
 
 void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
@@ -267,7 +269,10 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         //hardClip.process(buffer);
         //cubicDistortion.process(buffer);
         //arctangenteDistortion.process(buffer);
-        sineDistortion.process(buffer);
+        //sineDistortion.process(buffer);
+        //exponentialDistortion.process(buffer);
+        //piceWiseOverdrive.process(buffer);
+        diodeClipping.process(buffer);
     //if (lfoState)
     //    lfo.process(buffer);
     //if (ampModulationState)

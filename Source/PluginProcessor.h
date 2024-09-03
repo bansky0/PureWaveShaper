@@ -34,6 +34,9 @@
 #include "DSP/CubicDistortion.h"
 #include "DSP/ArctangentDistortion.h"
 #include "DSP/SineDistortion.h"
+#include "DSP/ExponentialDistortion.h"
+#include "DSP/PiceWiseOverdrive.h"
+#include "DSP/DiodeClipping.h"
 
 //==============================================================================
 /**
@@ -113,6 +116,9 @@ private:
     CubicDistortion cubicDistortion;
     ArctangentDistortion arctangenteDistortion;
     SineDistortion sineDistortion;
+    ExponentialDistortion exponentialDistortion;
+    PiceWiseOverdrive piceWiseOverdrive;
+    DiodeClipping diodeClipping;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };

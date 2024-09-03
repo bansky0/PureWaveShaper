@@ -6,6 +6,17 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="FjS2p6" name="DiodeClipping.cpp" compile="1" resource="0"
+            file="Source/DSP/DiodeClipping.cpp"/>
+      <FILE id="YR8kOj" name="DiodeClipping.h" compile="0" resource="0" file="Source/DSP/DiodeClipping.h"/>
+      <FILE id="g1UK98" name="PiceWiseOverdrive.cpp" compile="1" resource="0"
+            file="Source/DSP/PiceWiseOverdrive.cpp"/>
+      <FILE id="lwUttF" name="PiceWiseOverdrive.h" compile="0" resource="0"
+            file="Source/DSP/PiceWiseOverdrive.h"/>
+      <FILE id="agXBMQ" name="ExponentialDistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/ExponentialDistortion.cpp"/>
+      <FILE id="V8pAVw" name="ExponentialDistortion.h" compile="0" resource="0"
+            file="Source/DSP/ExponentialDistortion.h"/>
       <FILE id="b2QPF8" name="SineDistortion.cpp" compile="1" resource="0"
             file="Source/DSP/SineDistortion.cpp"/>
       <FILE id="xAqIfm" name="SineDistortion.h" compile="0" resource="0"
