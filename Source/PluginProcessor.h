@@ -37,6 +37,8 @@
 #include "DSP/ExponentialDistortion.h"
 #include "DSP/PiceWiseOverdrive.h"
 #include "DSP/DiodeClipping.h"
+#include "DSP/BitReduction.h"
+#include "DSP/AsymetricalDistortion.h"
 
 //==============================================================================
 /**
@@ -119,6 +121,8 @@ private:
     ExponentialDistortion exponentialDistortion;
     PiceWiseOverdrive piceWiseOverdrive;
     DiodeClipping diodeClipping;
+    BitReduction numberBitReduction;
+    AsymetricalDistortion asymetricalDistortion;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };

@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    SineDistortion.h
-    Created: 2 Sep 2024 11:03:13pm
+    BitReduction.h
+    Created: 4 Sep 2024 10:39:47am
     Author:  Jhonatan
 
   ==============================================================================
@@ -11,18 +11,16 @@
 #pragma once
 #include <JuceHeader.h>
 
-class SineDistortion
+class BitReduction
 {
 public:
-    void setSineDistortionValue(float inSineDistortionValue);
+    void setBitNumberValue(float inBitNumberValue);
 
     void process(juce::AudioBuffer<float>& buffer);
 
-	SineDistortion();
-	~SineDistortion();
+	BitReduction();
+	~BitReduction();
 
 private:
-    float distortion = 0.0f;//1-4
-    float pi{ juce::MathConstants<float>::pi };
-
+    float bitNumber{};
 };

@@ -21,7 +21,7 @@ public:
 	~DiodeClipping();
 
 private:
-    float Vt = 0.0253;// thermal voltage
-    float eta = 1.68;// emission coefficient
-    float Is = .105;// saturation current
+    float Vt = 0.0253f;// thermal voltage
+    float eta = 1.68f;// emission coefficient
+    float Is = .105f;// saturation current
 };

@@ -67,6 +67,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "arctangentDistortion", 1 }, "ArctangentDistortion", 1.0f, 10.0f, 0.5f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "sineDistortion", 1 }, "sineDistortion", 1.0f, 4.0f, 1.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "exponentialDistortion", 1 }, "ExponentialDistortion", 1.0f, 10.0f, 1.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "bitReduction", 1 }, "BitReduction", 2.0f, 16.0f, 4.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "asymetricalDistortion", 1 }, "AsymetricalDistortion", -0.7f, 0.7f, 1.0f));
 
     return parameters;
 }
@@ -209,6 +211,9 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     float inArctangtDistortionValue = *apvts.getRawParameterValue("arctangentDistortion");
     float inSineDistortionValue = *apvts.getRawParameterValue("sineDistortion");
     float inExponentialDistortion = *apvts.getRawParameterValue("exponentialDistortion");
+    float inBitReductionValue = *apvts.getRawParameterValue("bitReduction");
+    float inDCValue = *apvts.getRawParameterValue("asymetricalDistortion");
+
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
     panLinear.setPanLinearValue(inPanLinearParameter);
@@ -239,6 +244,8 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     arctangenteDistortion.setArctangentDistortionDrive(inArctangtDistortionValue);
     sineDistortion.setSineDistortionValue(inSineDistortionValue);
     exponentialDistortion.setExponentialDistortionValue(inExponentialDistortion);
+    numberBitReduction.setBitNumberValue(inBitReductionValue);
+    asymetricalDistortion.setDCValue(inDCValue);
 }
 
 void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
@@ -272,7 +279,10 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         //sineDistortion.process(buffer);
         //exponentialDistortion.process(buffer);
         //piceWiseOverdrive.process(buffer);
-        diodeClipping.process(buffer);
+        //diodeClipping.process(buffer);
+        //numberBitReduction.process(buffer);
+        asymetricalDistortion.process(buffer);
+        
     //if (lfoState)
     //    lfo.process(buffer);
     //if (ampModulationState)

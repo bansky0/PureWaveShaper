@@ -6,6 +6,13 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="lkCHjf" name="AsymetricalDistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/AsymetricalDistortion.cpp"/>
+      <FILE id="eSy3X6" name="AsymetricalDistortion.h" compile="0" resource="0"
+            file="Source/DSP/AsymetricalDistortion.h"/>
+      <FILE id="O4s7V3" name="BitReduction.cpp" compile="1" resource="0"
+            file="Source/DSP/BitReduction.cpp"/>
+      <FILE id="Af6f3A" name="BitReduction.h" compile="0" resource="0" file="Source/DSP/BitReduction.h"/>
       <FILE id="FjS2p6" name="DiodeClipping.cpp" compile="1" resource="0"
             file="Source/DSP/DiodeClipping.cpp"/>
       <FILE id="YR8kOj" name="DiodeClipping.h" compile="0" resource="0" file="Source/DSP/DiodeClipping.h"/>
