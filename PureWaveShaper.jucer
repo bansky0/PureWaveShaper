@@ -6,6 +6,36 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="AMK5dx" name="FadeIn.cpp" compile="1" resource="0" file="Source/DSP/FadeIn.cpp"/>
+      <FILE id="wlciLr" name="FadeIn.h" compile="0" resource="0" file="Source/DSP/FadeIn.h"/>
+      <FILE id="NZaDbB" name="RingModulation.cpp" compile="1" resource="0"
+            file="Source/DSP/RingModulation.cpp"/>
+      <FILE id="egoth2" name="RingModulation.h" compile="0" resource="0"
+            file="Source/DSP/RingModulation.h"/>
+      <FILE id="hTa1Hq" name="Subtraction.cpp" compile="1" resource="0" file="Source/DSP/Subtraction.cpp"/>
+      <FILE id="or4Oii" name="Subtraction.h" compile="0" resource="0" file="Source/DSP/Subtraction.h"/>
+      <FILE id="FTEznQ" name="Addition.cpp" compile="1" resource="0" file="Source/DSP/Addition.cpp"/>
+      <FILE id="lG263u" name="Addition.h" compile="0" resource="0" file="Source/DSP/Addition.h"/>
+      <FILE id="Y6bRh2" name="WhiteNoise.cpp" compile="1" resource="0" file="Source/DSP/WhiteNoise.cpp"/>
+      <FILE id="BcKs9x" name="WhiteNoise.h" compile="0" resource="0" file="Source/DSP/WhiteNoise.h"/>
+      <FILE id="MgTQh5" name="ImpulseTrain.cpp" compile="1" resource="0"
+            file="Source/DSP/ImpulseTrain.cpp"/>
+      <FILE id="Z5MPfQ" name="ImpulseTrain.h" compile="0" resource="0" file="Source/DSP/ImpulseTrain.h"/>
+      <FILE id="ar0Zbg" name="TriangleWave2.cpp" compile="1" resource="0"
+            file="Source/DSP/TriangleWave2.cpp"/>
+      <FILE id="NDRPFr" name="TriangleWave2.h" compile="0" resource="0" file="Source/DSP/TriangleWave2.h"/>
+      <FILE id="NdOyiF" name="SawtoothWave2.cpp" compile="1" resource="0"
+            file="Source/DSP/SawtoothWave2.cpp"/>
+      <FILE id="bJbjvN" name="SawtoothWave2.h" compile="0" resource="0" file="Source/DSP/SawtoothWave2.h"/>
+      <FILE id="aAYHzK" name="DutyCicleWave.cpp" compile="1" resource="0"
+            file="Source/DSP/DutyCicleWave.cpp"/>
+      <FILE id="Zc739O" name="DutyCicleWave.h" compile="0" resource="0" file="Source/DSP/DutyCicleWave.h"/>
+      <FILE id="jC8tM1" name="SquareWave2.cpp" compile="1" resource="0" file="Source/DSP/SquareWave2.cpp"/>
+      <FILE id="Fmte3j" name="SquareWave2.h" compile="0" resource="0" file="Source/DSP/SquareWave2.h"/>
+      <FILE id="GTssZv" name="SineWave2.cpp" compile="1" resource="0" file="Source/DSP/SineWave2.cpp"/>
+      <FILE id="AaSxMI" name="SineWave2.h" compile="0" resource="0" file="Source/DSP/SineWave2.h"/>
+      <FILE id="rWHV6V" name="WetDry.cpp" compile="1" resource="0" file="Source/DSP/WetDry.cpp"/>
+      <FILE id="MfaPyE" name="WetDry.h" compile="0" resource="0" file="Source/DSP/WetDry.h"/>
       <FILE id="lkCHjf" name="AsymetricalDistortion.cpp" compile="1" resource="0"
             file="Source/DSP/AsymetricalDistortion.cpp"/>
       <FILE id="eSy3X6" name="AsymetricalDistortion.h" compile="0" resource="0"

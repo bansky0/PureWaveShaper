@@ -53,8 +53,21 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterBool>(juce::ParameterID{ "ampModulationState", 1 }, "AmpModulationState", true));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "sineWave", 1 }, "SineWave", 20.0f, 400.0f, 100.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "squareWave", 1 }, "SquareWave", 20.0f, 400.0f, 100.0f));
-    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "triangleWave", 1 }, "TriangleWave", 20.0f, 400.0f, 100.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "dutyCicleFreq", 1 }, "DutyCicleFreq", 20.0f, 400.0f, 100.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "dutyCicle", 1 }, "DutyCicle", 1.0f, 99.0f, 50.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "triangleWave", 1 }, "TriangleWave", 2.0f, 100.0f, 100.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "triangleWaveWidth", 1 }, "TriangleWaveWidth", 0.0f, 1.0f, 0.5f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "trainImpulse", 1 }, "TrainImpulse", 20.0f, 400.0f, 100.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "sawtoothWave", 1 }, "SawtoothWave", 20.0f, 400.0f, 100.0f));
+
+    //additiveSynthesis, subtractionSynthesis, ringmodulation
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "osc1", 1 }, "Osc1", 20.0f, 400.0f, 300.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "amp1", 1 }, "Amp1", 0.0f, 1.0f, 0.5f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "osc2", 1 }, "Osc2", 20.0f, 400.0f, 100.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "amp2", 1 }, "Amp2", 0.0f, 1.0f, 0.5f));
+
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "fadeInSeconds", 1 }, "FadeInSeconds", 0.0f, 5.0f, 5.0f));
+
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphLFO", 1 }, "MorphLFO", 1.0f, 20.0f, 3.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphShape", 1 }, "MorphShape", 1.0f, 10.0f, 5.0f)); //used for MorphWave
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphWave", 1 }, "MorphWave", 20.0f, 1000.0f, 5.0f));
@@ -69,6 +82,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "exponentialDistortion", 1 }, "ExponentialDistortion", 1.0f, 10.0f, 1.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "bitReduction", 1 }, "BitReduction", 2.0f, 16.0f, 4.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "asymetricalDistortion", 1 }, "AsymetricalDistortion", -0.7f, 0.7f, 1.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "wetDry", 1 }, "WetDry", 0.0f, 100.0f, 50.0f));
 
     return parameters;
 }
@@ -142,11 +156,18 @@ void PureWaveShaperAudioProcessor::prepareToPlay (double sampleRate, int samples
     ampModulation.prepare(sampleRate);
     sineWave.prepare(sampleRate);
     squareWave.prepare(sampleRate);
-    triangleWave.prepare(sampleRate);
+    dutyCicleWave.prepare(sampleRate);
     sawtoothWave.prepare(sampleRate);
+    triangleWave.prepare(sampleRate);
+    impulseTrain.prepare(sampleRate);
     morphLFO.prepare(sampleRate);
     morphWave.prepare(sampleRate);
     autoPan.prepare(sampleRate);
+    additiveSynth.prepare(sampleRate);
+    subtractionSynth.prepare(sampleRate);
+    ringModulation.prepare(sampleRate);
+    fadeIn.prepare(sampleRate);
+
 }
 
 void PureWaveShaperAudioProcessor::releaseResources()
@@ -197,7 +218,11 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     bool inAmpModulationStateParameter = *apvts.getRawParameterValue("ampModulationState");
     float inSineWaveValue = *apvts.getRawParameterValue("sineWave");
     float inSquareWaveValue = *apvts.getRawParameterValue("squareWave");
+    float inDutyCicleFreqValue = *apvts.getRawParameterValue("dutyCicleFreq");
+    float inDutyCicle = *apvts.getRawParameterValue("dutyCicle");
     float inTriangleWaveValue = *apvts.getRawParameterValue("triangleWave");
+    float inTriangleWaveWidthValue = *apvts.getRawParameterValue("triangleWaveWidth");
+    float inImpulseTrainFrqValue = *apvts.getRawParameterValue("trainImpulse");
     float inSawtoothWaveValue = *apvts.getRawParameterValue("sawtoothWave");
     float inMorphLFOValue = *apvts.getRawParameterValue("morphLFO");
     float inMorphShapeValue = *apvts.getRawParameterValue("morphShape");
@@ -213,7 +238,25 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     float inExponentialDistortion = *apvts.getRawParameterValue("exponentialDistortion");
     float inBitReductionValue = *apvts.getRawParameterValue("bitReduction");
     float inDCValue = *apvts.getRawParameterValue("asymetricalDistortion");
+    float inWetDryValue = *apvts.getRawParameterValue("wetDry"); 
+    //additive synth
+    float inOsc1= *apvts.getRawParameterValue("osc1");
+    float inAmp1 = *apvts.getRawParameterValue("amp1");
+    float inOsc2 = *apvts.getRawParameterValue("osc2");
+    float inAmp2 = *apvts.getRawParameterValue("amp2");
+    //subtracction synth
+    float inOsc1Sub = *apvts.getRawParameterValue("osc1");
+    float inAmp1Sub = *apvts.getRawParameterValue("amp1");
+    float inOsc2Sub = *apvts.getRawParameterValue("osc2");
+    float inAmp2Sub = *apvts.getRawParameterValue("amp2");
+    //ringModulation
+    float inOsc1Ring = *apvts.getRawParameterValue("osc1");
+    float inAmp1Ring = *apvts.getRawParameterValue("amp1");
+    float inOsc2Ring = *apvts.getRawParameterValue("osc2");
+    float inAmp2Ring = *apvts.getRawParameterValue("amp2");
 
+    float inFadeSec = *apvts.getRawParameterValue("fadeInSeconds");
+    
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
     panLinear.setPanLinearValue(inPanLinearParameter);
@@ -228,8 +271,33 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     ampModulationState = inAmpModulationStateParameter;
     sineWave.setFrequency(inSineWaveValue);
     squareWave.setFrequency(inSquareWaveValue);
+    dutyCicleWave.setFrequency(inDutyCicleFreqValue);
+    dutyCicleWave.setDutyCycle(inDutyCicle);
     triangleWave.setFrequency(inTriangleWaveValue);
+    triangleWave.setWidth(inTriangleWaveWidthValue);
     sawtoothWave.setFrequency(inSawtoothWaveValue);
+    impulseTrain.setFrequency(inImpulseTrainFrqValue);
+    
+    //additive synth
+    additiveSynth.setFrequency1(inOsc1);
+    additiveSynth.setAmplitud1(inAmp1);
+    additiveSynth.setFrequency2(inOsc2);
+    additiveSynth.setAmplitud2(inAmp2);
+
+    //subtraction synth
+    subtractionSynth.setFrequency1(inOsc1);
+    subtractionSynth.setAmplitud1(inAmp1);
+    subtractionSynth.setFrequency2(inOsc2);
+    subtractionSynth.setAmplitud2(inAmp2);
+
+    //ringModulation
+    ringModulation.setFrequency1(inOsc1);
+    ringModulation.setAmplitud1(inAmp1);
+    ringModulation.setFrequency2(inOsc2);
+    ringModulation.setAmplitud2(inAmp2);
+
+    fadeIn.setFadeDuration(inFadeSec);
+
     morphLFO.setFrequency(inMorphLFOValue);
     morphLFO.setShape(inMorphShapeValue);
     morphLFO.setDepth(inDepthValue);
@@ -246,11 +314,15 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     exponentialDistortion.setExponentialDistortionValue(inExponentialDistortion);
     numberBitReduction.setBitNumberValue(inBitReductionValue);
     asymetricalDistortion.setDCValue(inDCValue);
+    wetDry.setDryWet(inWetDryValue);
+
 }
 
 void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     updateParameters();
+
+    dryBuffer.makeCopyOf(buffer);
 
     input.process(buffer);
     //pan.process(buffer);
@@ -261,15 +333,22 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //panSineLawModified.process(buffer);
     //sineWave.process(buffer);
     //squareWave.process(buffer);
-    //triangleWave.process(buffer);
+    //dutyCicleWave.process(buffer);
     //sawtoothWave.process(buffer);
+    //triangleWave.process(buffer);
+    //impulseTrain.process(buffer);
+    //whiteNoise.process(buffer);
+    //additiveSynth.process(buffer);
+    //subtractionSynth.process(buffer);
+    ringModulation.process(buffer);
+    fadeIn.process(buffer);
     //morphLFO.process(buffer);
     //morphWave.process(buffer);
     //autoPan.process(buffer);
     //infinitClip.process(buffer);
     //halfWaveRectification.process(buffer);
 
-    if (midSideState)
+    //if (midSideState)
         //    midSide.process(buffer);
         //    stereoImager.process(buffer);
         //fullWaveRectification.process(buffer);
@@ -281,13 +360,15 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         //piceWiseOverdrive.process(buffer);
         //diodeClipping.process(buffer);
         //numberBitReduction.process(buffer);
-        asymetricalDistortion.process(buffer);
-        
+        //asymetricalDistortion.process(buffer);
+    
+    
     //if (lfoState)
     //    lfo.process(buffer);
     //if (ampModulationState)
     //    ampModulation.process(buffer);
 
+    wetDry.process(dryBuffer, buffer);
 }
 
 //==============================================================================

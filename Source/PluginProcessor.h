@@ -18,10 +18,10 @@
 #include "DSP/Pan_sineLaw_modified.h"
 #include "DSP/LFO.h"
 #include "DSP/AmpModulation.h"
-#include "DSP/SineWave.h"
-#include "DSP/SquareWave.h"
-#include "DSP/TriangleWave.h"
-#include "DSP/SawtoothWave.h"
+#include "DSP/SineWave2.h"
+#include "DSP/SquareWave2.h"
+#include "DSP/TriangleWave2.h"
+#include "DSP/SawtoothWave2.h"
 #include "DSP/MorphLFO.h"
 #include "DSP/MorphWave.h"
 #include "DSP/AutoPan.h"
@@ -39,6 +39,14 @@
 #include "DSP/DiodeClipping.h"
 #include "DSP/BitReduction.h"
 #include "DSP/AsymetricalDistortion.h"
+#include "DSP/WetDry.h"
+#include "DSP/DutyCicleWave.h"
+#include "DSP/ImpulseTrain.h"
+#include "DSP/WhiteNoise.h"
+#include "DSP/Addition.h"
+#include "DSP/Subtraction.h"
+#include "DSP/RingModulation.h"
+#include "DSP/FadeIn.h"
 
 //==============================================================================
 /**
@@ -101,10 +109,10 @@ private:
     bool lfoState{ false };
     AmpModulation ampModulation;
     bool ampModulationState{ false };
-    SineWave sineWave;
-    SquareWave squareWave;
-    TriangleWave triangleWave;
-    SawtoothWave sawtoothWave;
+    SineWave2 sineWave;
+    SquareWave2 squareWave;
+    TriangleWave2 triangleWave;
+    SawtoothWave2 sawtoothWave;
     MorphLfo morphLFO;
     MorphWave morphWave;
     AutoPan autoPan;
@@ -123,6 +131,15 @@ private:
     DiodeClipping diodeClipping;
     BitReduction numberBitReduction;
     AsymetricalDistortion asymetricalDistortion;
+    WetDry wetDry;
+    juce::AudioBuffer<float> dryBuffer;
+    DutyCicleWave dutyCicleWave;
+    ImpulseTrain impulseTrain;
+    WhiteNoise whiteNoise;
+    AdditiveSynth additiveSynth;
+    Subtraction subtractionSynth;
+    RingModulation ringModulation;
+    FadeIn fadeIn;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };
