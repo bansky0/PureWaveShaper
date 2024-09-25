@@ -6,8 +6,27 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
-      <FILE id="AMK5dx" name="FadeIn.cpp" compile="1" resource="0" file="Source/DSP/FadeIn.cpp"/>
-      <FILE id="wlciLr" name="FadeIn.h" compile="0" resource="0" file="Source/DSP/FadeIn.h"/>
+      <FILE id="fXPRv8" name="PingPongEcho.cpp" compile="1" resource="0"
+            file="Source/DSP/PingPongEcho.cpp"/>
+      <FILE id="ytoJ0o" name="PingPongEcho.h" compile="0" resource="0" file="Source/DSP/PingPongEcho.h"/>
+      <FILE id="DPBM2i" name="EchoStereo.cpp" compile="1" resource="0" file="Source/DSP/EchoStereo.cpp"/>
+      <FILE id="rBmcSk" name="EchoStereo.h" compile="0" resource="0" file="Source/DSP/EchoStereo.h"/>
+      <FILE id="FFhV59" name="EchoFeedBackAndFordward2.cpp" compile="1" resource="0"
+            file="Source/DSP/EchoFeedBackAndFordward2.cpp"/>
+      <FILE id="FDwxdM" name="EchoFeedBackAndFordward2.h" compile="0" resource="0"
+            file="Source/DSP/EchoFeedBackAndFordward2.h"/>
+      <FILE id="xU1J7w" name="SimpleDelay3.cpp" compile="1" resource="0"
+            file="Source/DSP/SimpleDelay3.cpp"/>
+      <FILE id="NBMil4" name="SimpleDelay3.h" compile="0" resource="0" file="Source/DSP/SimpleDelay3.h"/>
+      <FILE id="mBS9LV" name="EchoFeedBackAndFordward.cpp" compile="1" resource="0"
+            file="Source/DSP/EchoFeedBackAndFordward.cpp"/>
+      <FILE id="BW1Yb9" name="EchoFeedBackAndFordward.h" compile="0" resource="0"
+            file="Source/DSP/EchoFeedBackAndFordward.h"/>
+      <FILE id="qze3Zf" name="SimpleDelay2.cpp" compile="1" resource="0"
+            file="Source/DSP/SimpleDelay2.cpp"/>
+      <FILE id="KTLNjz" name="SimpleDelay2.h" compile="0" resource="0" file="Source/DSP/SimpleDelay2.h"/>
+      <FILE id="xKRpnH" name="SimpleDelay.cpp" compile="1" resource="0" file="Source/DSP/SimpleDelay.cpp"/>
+      <FILE id="kiypMf" name="SimpleDelay.h" compile="0" resource="0" file="Source/DSP/SimpleDelay.h"/>
       <FILE id="NZaDbB" name="RingModulation.cpp" compile="1" resource="0"
             file="Source/DSP/RingModulation.cpp"/>
       <FILE id="egoth2" name="RingModulation.h" compile="0" resource="0"
@@ -144,6 +163,7 @@
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -171,6 +191,7 @@
         <MODULEPATH id="juce_graphics" path="../../../../../JUCE/JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../../../JUCE/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../../JUCE/JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
   </EXPORTFORMATS>

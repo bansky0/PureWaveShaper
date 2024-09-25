@@ -66,8 +66,6 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "osc2", 1 }, "Osc2", 20.0f, 400.0f, 100.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "amp2", 1 }, "Amp2", 0.0f, 1.0f, 0.5f));
 
-    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "fadeInSeconds", 1 }, "FadeInSeconds", 0.0f, 5.0f, 5.0f));
-
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphLFO", 1 }, "MorphLFO", 1.0f, 20.0f, 3.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphShape", 1 }, "MorphShape", 1.0f, 10.0f, 5.0f)); //used for MorphWave
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "morphWave", 1 }, "MorphWave", 20.0f, 1000.0f, 5.0f));
@@ -82,7 +80,17 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "exponentialDistortion", 1 }, "ExponentialDistortion", 1.0f, 10.0f, 1.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "bitReduction", 1 }, "BitReduction", 2.0f, 16.0f, 4.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "asymetricalDistortion", 1 }, "AsymetricalDistortion", -0.7f, 0.7f, 1.0f));
-    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "wetDry", 1 }, "WetDry", 0.0f, 100.0f, 50.0f));
+    
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayTime", 1 }, "DelayTime", 0.0f, 2.0f, 1.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayTime2", 1 }, "DelayTime2", 0.0f, 2.0f, 1.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayBPM", 1 }, "DelayBPM", 30, 120, 90));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayBPM2", 1 }, "DelayBPM2", 30, 120, 90));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayAmp", 1 }, "DelayAmp", 0.0f, 1.0f , 0.75f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayAmp2", 1 }, "DelayAmp2", 0.0f, 1.0f, 0.75f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayFeedback", 1 }, "DelayFeedback", 0.0f, 100.0f, 75.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "panDelay", 1 }, "PanDelay", -100.0f, 100.0f, 0.0f));
+
+    parameters.add(std::make_unique<juce::AudioParameterInt>(juce::ParameterID{ "wetDry", 1 }, "WetDry", 0.0f, 100.0f, 50.0f));
 
     return parameters;
 }
@@ -166,8 +174,14 @@ void PureWaveShaperAudioProcessor::prepareToPlay (double sampleRate, int samples
     additiveSynth.prepare(sampleRate);
     subtractionSynth.prepare(sampleRate);
     ringModulation.prepare(sampleRate);
-    fadeIn.prepare(sampleRate);
-
+    simpleDelay.prepare(sampleRate);
+    simpleDelay2.prepare(sampleRate);
+    juce::dsp::ProcessSpec spec;
+    simpleDelay3.prepare(sampleRate, samplesPerBlock, spec, getNumInputChannels());
+    echoFBF.prepare(sampleRate);
+    echoFBF2.prepare(sampleRate, getNumInputChannels());
+    echoStereo.prepare(sampleRate, getNumInputChannels());
+    pingPongEcho.prepare(sampleRate, getNumInputChannels());
 }
 
 void PureWaveShaperAudioProcessor::releaseResources()
@@ -255,8 +269,16 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     float inOsc2Ring = *apvts.getRawParameterValue("osc2");
     float inAmp2Ring = *apvts.getRawParameterValue("amp2");
 
-    float inFadeSec = *apvts.getRawParameterValue("fadeInSeconds");
-    
+    float inDelay = *apvts.getRawParameterValue("delayTime");
+    float inDelay2 = *apvts.getRawParameterValue("delayTime2");
+    float inBPM = *apvts.getRawParameterValue("delayBPM");
+    float inBPM2 = *apvts.getRawParameterValue("delayBPM2");
+    float inAmpDelay = *apvts.getRawParameterValue("delayAmp");
+    float inAmpDelay2 = *apvts.getRawParameterValue("delayAmp2");
+    float inFeedbackDelay = *apvts.getRawParameterValue("delayFeedback");
+    float inPanDelayValue = *apvts.getRawParameterValue("panDelay");
+
+
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
     panLinear.setPanLinearValue(inPanLinearParameter);
@@ -296,8 +318,6 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     ringModulation.setFrequency2(inOsc2);
     ringModulation.setAmplitud2(inAmp2);
 
-    fadeIn.setFadeDuration(inFadeSec);
-
     morphLFO.setFrequency(inMorphLFOValue);
     morphLFO.setShape(inMorphShapeValue);
     morphLFO.setDepth(inDepthValue);
@@ -314,6 +334,32 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     exponentialDistortion.setExponentialDistortionValue(inExponentialDistortion);
     numberBitReduction.setBitNumberValue(inBitReductionValue);
     asymetricalDistortion.setDCValue(inDCValue);
+
+    simpleDelay.setDelay(inDelay);
+    simpleDelay2.setBPM(inBPM);
+    simpleDelay2.setAmpDelay(inAmpDelay);
+    simpleDelay2.setFeedback(inFeedbackDelay);
+
+    simpleDelay3.setTimeDelay(inDelay);
+
+    
+    echoFBF.setBPM(inBPM);
+    echoFBF.setAmpFeedback(inAmpDelay);
+    echoFBF.setAmpFordward(inAmpDelay2);
+    
+    echoFBF2.setBPM(inBPM);
+    echoFBF2.setBPMOutput(inBPM2);
+    echoFBF2.setAmpFeedback(inAmpDelay);
+    echoFBF2.setAmpFordward(inAmpDelay2);
+    echoFBF2.setFeedback(inFeedbackDelay);
+
+    echoStereo.setBPM(inBPM, inBPM2);
+    echoStereo.setGains(inAmpDelay, inAmpDelay2);
+    //echoStereo.setPan(inPanDelayValue);
+
+    pingPongEcho.setBPM(inBPM, inBPM2);
+    pingPongEcho.setGains(inAmpDelay, inAmpDelay2);
+
     wetDry.setDryWet(inWetDryValue);
 
 }
@@ -340,8 +386,8 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //whiteNoise.process(buffer);
     //additiveSynth.process(buffer);
     //subtractionSynth.process(buffer);
-    ringModulation.process(buffer);
-    fadeIn.process(buffer);
+    //ringModulation.process(buffer);
+
     //morphLFO.process(buffer);
     //morphWave.process(buffer);
     //autoPan.process(buffer);
@@ -367,7 +413,13 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //    lfo.process(buffer);
     //if (ampModulationState)
     //    ampModulation.process(buffer);
-
+    //simpleDelay.process(buffer);
+    //simpleDelay2.process(buffer);
+    //simpleDelay3.process(buffer);
+    //echoFBF.process(buffer);
+    //echoFBF2.process(buffer);
+    //echoStereo.process(buffer);
+    pingPongEcho.process(buffer);
     wetDry.process(dryBuffer, buffer);
 }
 

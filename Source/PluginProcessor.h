@@ -46,7 +46,13 @@
 #include "DSP/Addition.h"
 #include "DSP/Subtraction.h"
 #include "DSP/RingModulation.h"
-#include "DSP/FadeIn.h"
+#include "DSP/SimpleDelay.h"
+#include "DSP/SimpleDelay2.h"
+#include "DSP/SimpleDelay3.h"
+#include "DSP/EchoFeedBackAndFordward.h"
+#include "DSP/EchoFeedBackAndFordward2.h"
+#include "DSP/EchoStereo.h"
+#include "DSP/PingPongEcho.h"
 
 //==============================================================================
 /**
@@ -139,7 +145,13 @@ private:
     AdditiveSynth additiveSynth;
     Subtraction subtractionSynth;
     RingModulation ringModulation;
-    FadeIn fadeIn;
+    SimpleDelay simpleDelay;
+    SimpleDelay2 simpleDelay2;
+    SimpleDelay3 simpleDelay3;
+    EchoFBF echoFBF;
+    EchoFBF2 echoFBF2;
+    EchoStereo echoStereo;
+    PingPongEcho pingPongEcho;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };
