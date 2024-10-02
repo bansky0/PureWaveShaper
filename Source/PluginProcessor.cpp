@@ -90,6 +90,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayFeedback", 1 }, "DelayFeedback", 0.0f, 100.0f, 75.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "panDelay", 1 }, "PanDelay", -100.0f, 100.0f, 0.0f));
 
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterFIR", 1 }, "FilterFir", 20.0f, 20000.0f, 2000.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterQ", 1 }, "FilterQ", 0.1f, 2.0f, 0.707f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterGain", 1 }, "FilterGain", 0.1f, 3.0f, 1.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterGCoeficient", 1 }, "FilterGCoeficient", -1.0f, 1.0f, 0.707f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterGCoeficient2", 1 }, "FilterGCoeficient2", -1.0f, 1.0f, 0.707f));
+
     parameters.add(std::make_unique<juce::AudioParameterInt>(juce::ParameterID{ "wetDry", 1 }, "WetDry", 0.0f, 100.0f, 50.0f));
 
     return parameters;
@@ -182,6 +188,28 @@ void PureWaveShaperAudioProcessor::prepareToPlay (double sampleRate, int samples
     echoFBF2.prepare(sampleRate, getNumInputChannels());
     echoStereo.prepare(sampleRate, getNumInputChannels());
     pingPongEcho.prepare(sampleRate, getNumInputChannels());
+    convolution.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    firLpf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    firLpf2.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirHpf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirApf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirLpf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirLsf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirBpf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirPeak.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirNotch.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirFoLpf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirFoHpf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    iirFoApf.prepare(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    biquadApf.prepare(sampleRate);
+    biquadBpf.prepare(sampleRate);
+    biquadBpf2.prepare(sampleRate);
+    biquadHpf.prepare(sampleRate);
+    biquadHsf.prepare(sampleRate);
+    biquadLpf.prepare(sampleRate);
+    biquadLsf.prepare(sampleRate);
+    biquadNotch.prepare(sampleRate);
+    biquadPeaking.prepare(sampleRate);
 }
 
 void PureWaveShaperAudioProcessor::releaseResources()
@@ -278,6 +306,11 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     float inFeedbackDelay = *apvts.getRawParameterValue("delayFeedback");
     float inPanDelayValue = *apvts.getRawParameterValue("panDelay");
 
+    float inCutOff = *apvts.getRawParameterValue("filterFIR");
+    float inQFilter = *apvts.getRawParameterValue("filterQ");
+    float inGainFilter = *apvts.getRawParameterValue("filterGain");
+    float inGCoeficient = *apvts.getRawParameterValue("filterGCoeficient");
+    float inGCoeficient2 = *apvts.getRawParameterValue("filterGCoeficient2");
 
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
@@ -360,6 +393,46 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     pingPongEcho.setBPM(inBPM, inBPM2);
     pingPongEcho.setGains(inAmpDelay, inAmpDelay2);
 
+    firLpf.setCutoffFrequency(inCutOff);
+    firLpf2.setCutoffFrequency(inCutOff);
+    iirHpf.setCutoffFrequency(inCutOff);
+    iirApf.setCutoffFrequency(inCutOff);
+    iirLpf.setCutoffFrequency(inCutOff);
+    iirLsf.setCutoffFrequency(inCutOff);
+    iirLsf.setGain(inGainFilter);
+    iirLsf.setQ(inQFilter);
+    iirBpf.setCutoffFrequency(inCutOff);
+    iirNotch.setCutoffFrequency(inCutOff);
+    iirPeak.setCutoffFrequency(inCutOff);
+    iirPeak.setGain(inGainFilter);
+    iirPeak.setQ(inQFilter);
+    iirFoLpf.setCutoffFrequency(inCutOff);
+    iirFoHpf.setCutoffFrequency(inCutOff);
+    iirFoApf.setCutoffFrequency(inCutOff);
+    biquadApf.setFrequency(inCutOff);
+    biquadApf.setQ(inQFilter);
+    biquadBpf.setFrequency(inCutOff);
+    biquadBpf.setQ(inQFilter);
+    biquadBpf2.setFrequency(inCutOff);
+    biquadBpf2.setQ(inQFilter);
+    biquadHpf.setFrequency(inCutOff);
+    biquadHpf.setQ(inQFilter);
+    biquadHsf.setFrequency(inCutOff);
+    biquadHsf.setQ(inQFilter);
+    biquadHsf.setGain(inGainFilter);
+    biquadLpf.setFrequency(inCutOff);
+    biquadLpf.setQ(inQFilter);
+    biquadLsf.setFrequency(inCutOff);
+    biquadLsf.setQ(inQFilter);
+    biquadLsf.setGain(inGainFilter);
+    biquadNotch.setFrequency(inCutOff);
+    biquadNotch.setQ(inQFilter);
+    biquadPeaking.setFrequency(inCutOff);
+    biquadPeaking.setQ(inQFilter);
+    biquadPeaking.setGain(inGainFilter);
+    dfApf.setG(inGCoeficient);
+    dfNApf.setG(inGCoeficient, inGCoeficient2);
+
     wetDry.setDryWet(inWetDryValue);
 
 }
@@ -419,8 +492,34 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //echoFBF.process(buffer);
     //echoFBF2.process(buffer);
     //echoStereo.process(buffer);
-    pingPongEcho.process(buffer);
+    //pingPongEcho.process(buffer);
+    //convolution.process(buffer);
+    //firLpf.process(buffer);
+    //firLpf2.process(buffer);
+    //iirHpf.process(buffer);
+    //iirApf.process(buffer);
+    //iirLpf.process(buffer);
+    //iirLsf.process(buffer);
+    //iirBpf.process(buffer);
+    //iirNotch.process(buffer);
+    //iirPeak.process(buffer);
+    //iirFoLpf.process(buffer);
+    //iirFoHpf.process(buffer);
+    //iirFoApf.process(buffer);
+    //biquadApf.process(buffer);
+    //biquadBpf.process(buffer);
+    //biquadBpf2.process(buffer);
+    //biquadHpf.process(buffer);
+    //biquadHsf.process(buffer);
+    //biquadLpf.process(buffer);
+    //biquadLsf.process(buffer);
+    //biquadNotch.process(buffer);
+    //biquadPeaking.process(buffer);
+    //dfApf.process(buffer);
+    dfNApf.process(buffer);
+
     wetDry.process(dryBuffer, buffer);
+
 }
 
 //==============================================================================

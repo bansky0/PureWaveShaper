@@ -6,6 +6,69 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="kEpPcI" name="DirectFormII_NestedAPF.cpp" compile="1" resource="0"
+            file="Source/DSP/DirectFormII_NestedAPF.cpp"/>
+      <FILE id="JUauhn" name="DirectFormII_NestedAPF.h" compile="0" resource="0"
+            file="Source/DSP/DirectFormII_NestedAPF.h"/>
+      <FILE id="XOmvyo" name="DirectFormII_APF.h" compile="0" resource="0"
+            file="Source/DSP/DirectFormII_APF.h"/>
+      <FILE id="XpsoAF" name="DirectFormII_APF.cpp" compile="1" resource="0"
+            file="Source/DSP/DirectFormII_APF.cpp"/>
+      <FILE id="hYFRE3" name="Biquad_Notch.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_Notch.cpp"/>
+      <FILE id="Dn4IHW" name="Biquad_Notch.h" compile="0" resource="0" file="Source/DSP/Biquad_Notch.h"/>
+      <FILE id="HONoMY" name="Biquad_HSF.cpp" compile="1" resource="0" file="Source/DSP/Biquad_HSF.cpp"/>
+      <FILE id="bCBKkh" name="Biquad_HSF.h" compile="0" resource="0" file="Source/DSP/Biquad_HSF.h"/>
+      <FILE id="JjqPJH" name="Biquad_LSF.cpp" compile="1" resource="0" file="Source/DSP/Biquad_LSF.cpp"/>
+      <FILE id="vTe4be" name="Biquad_LSF.h" compile="0" resource="0" file="Source/DSP/Biquad_LSF.h"/>
+      <FILE id="ORnAkZ" name="Biquad_Peaking.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_Peaking.cpp"/>
+      <FILE id="N0cchG" name="Biquad_Peaking.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_Peaking.h"/>
+      <FILE id="rwiewV" name="Biquad_APF.cpp" compile="1" resource="0" file="Source/DSP/Biquad_APF.cpp"/>
+      <FILE id="lghsVP" name="Biquad_APF.h" compile="0" resource="0" file="Source/DSP/Biquad_APF.h"/>
+      <FILE id="My7EKG" name="Biquad_BPF2.cpp" compile="1" resource="0" file="Source/DSP/Biquad_BPF2.cpp"/>
+      <FILE id="kD6HMs" name="Biquad_BPF2.h" compile="0" resource="0" file="Source/DSP/Biquad_BPF2.h"/>
+      <FILE id="KpvESv" name="Biquad_BPF.cpp" compile="1" resource="0" file="Source/DSP/Biquad_BPF.cpp"/>
+      <FILE id="z1Xnl6" name="Biquad_BPF.h" compile="0" resource="0" file="Source/DSP/Biquad_BPF.h"/>
+      <FILE id="wHfLtJ" name="Biquad_HPF.cpp" compile="1" resource="0" file="Source/DSP/Biquad_HPF.cpp"/>
+      <FILE id="f3gDi8" name="Biquad_HPF.h" compile="0" resource="0" file="Source/DSP/Biquad_HPF.h"/>
+      <FILE id="p1kk3O" name="Biquad_LPF.cpp" compile="1" resource="0" file="Source/DSP/Biquad_LPF.cpp"/>
+      <FILE id="yb8nxS" name="Biquad_LPF.h" compile="0" resource="0" file="Source/DSP/Biquad_LPF.h"/>
+      <FILE id="XH0xz0" name="IIR_PeakFilter.cpp" compile="1" resource="0"
+            file="Source/DSP/IIR_PeakFilter.cpp"/>
+      <FILE id="js1MSh" name="IIR_PeakFilter.h" compile="0" resource="0"
+            file="Source/DSP/IIR_PeakFilter.h"/>
+      <FILE id="dLvG5i" name="IIR_Notch.cpp" compile="1" resource="0" file="Source/DSP/IIR_Notch.cpp"/>
+      <FILE id="bDYNiR" name="IIR_Notch.h" compile="0" resource="0" file="Source/DSP/IIR_Notch.h"/>
+      <FILE id="PJuklD" name="IIR_BPF.cpp" compile="1" resource="0" file="Source/DSP/IIR_BPF.cpp"/>
+      <FILE id="HsW7BB" name="IIR_BPF.h" compile="0" resource="0" file="Source/DSP/IIR_BPF.h"/>
+      <FILE id="sUV5Vq" name="IIR_LSF.cpp" compile="1" resource="0" file="Source/DSP/IIR_LSF.cpp"/>
+      <FILE id="UblnZZ" name="IIR_LSF.h" compile="0" resource="0" file="Source/DSP/IIR_LSF.h"/>
+      <FILE id="Pv2eCB" name="IIR_APF.cpp" compile="1" resource="0" file="Source/DSP/IIR_APF.cpp"/>
+      <FILE id="WnR6rH" name="IIR_APF.h" compile="0" resource="0" file="Source/DSP/IIR_APF.h"/>
+      <FILE id="CHbltn" name="IIR_LPF.cpp" compile="1" resource="0" file="Source/DSP/IIR_LPF.cpp"/>
+      <FILE id="gPIhmm" name="IIR_LPF.h" compile="0" resource="0" file="Source/DSP/IIR_LPF.h"/>
+      <FILE id="uPqalr" name="IIR_FirstOrderAPF.cpp" compile="1" resource="0"
+            file="Source/DSP/IIR_FirstOrderAPF.cpp"/>
+      <FILE id="bYwr1R" name="IIR_FirstOrderAPF.h" compile="0" resource="0"
+            file="Source/DSP/IIR_FirstOrderAPF.h"/>
+      <FILE id="Wip1sO" name="IIR_FirstOrderHPF.cpp" compile="1" resource="0"
+            file="Source/DSP/IIR_FirstOrderHPF.cpp"/>
+      <FILE id="IbxuSm" name="IIR_FirstOrderHPF.h" compile="0" resource="0"
+            file="Source/DSP/IIR_FirstOrderHPF.h"/>
+      <FILE id="lMPKaC" name="IIR_FirstOrderLPF.cpp" compile="1" resource="0"
+            file="Source/DSP/IIR_FirstOrderLPF.cpp"/>
+      <FILE id="AM70ky" name="IIR_FirstOrderLPF.h" compile="0" resource="0"
+            file="Source/DSP/IIR_FirstOrderLPF.h"/>
+      <FILE id="NLkaMN" name="IIR_HPF.cpp" compile="1" resource="0" file="Source/DSP/IIR_HPF.cpp"/>
+      <FILE id="fnuWCV" name="IIR_HPF.h" compile="0" resource="0" file="Source/DSP/IIR_HPF.h"/>
+      <FILE id="eJUYQp" name="FIR_LPF2.cpp" compile="1" resource="0" file="Source/DSP/FIR_LPF2.cpp"/>
+      <FILE id="rbWoAO" name="FIR_LPF2.h" compile="0" resource="0" file="Source/DSP/FIR_LPF2.h"/>
+      <FILE id="Cmkmqp" name="FIR_LPF.cpp" compile="1" resource="0" file="Source/DSP/FIR_LPF.cpp"/>
+      <FILE id="QYpTIC" name="FIR_LPF.h" compile="0" resource="0" file="Source/DSP/FIR_LPF.h"/>
+      <FILE id="X961hb" name="Convolution.cpp" compile="1" resource="0" file="Source/DSP/Convolution.cpp"/>
+      <FILE id="Hr9IVw" name="Convolution.h" compile="0" resource="0" file="Source/DSP/Convolution.h"/>
       <FILE id="fXPRv8" name="PingPongEcho.cpp" compile="1" resource="0"
             file="Source/DSP/PingPongEcho.cpp"/>
       <FILE id="ytoJ0o" name="PingPongEcho.h" compile="0" resource="0" file="Source/DSP/PingPongEcho.h"/>
@@ -151,6 +214,14 @@
       <FILE id="EDB8AV" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="HVqXRW" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+    <GROUP id="{1272A8DB-1B29-D092-F010-6708DA5A452F}" name="Assets">
+      <FILE id="itKSeu" name="Vocal Plate.aif" compile="0" resource="1" file="Assets/Vocal Plate.aif"/>
+      <FILE id="pe5U4e" name="IR_Hall.wav" compile="0" resource="1" file="Assets/IR_Hall.wav"/>
+      <FILE id="NG0Di2" name="Taylor 314ce - DPA 4011.wav" compile="0" resource="1"
+            file="Assets/Taylor 314ce - DPA 4011.wav"/>
+      <FILE id="ar1ygy" name="Cenzo Celestion V30 Mix.wav" compile="0" resource="1"
+            file="Assets/Cenzo Celestion V30 Mix.wav"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

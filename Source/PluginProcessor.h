@@ -53,7 +53,30 @@
 #include "DSP/EchoFeedBackAndFordward2.h"
 #include "DSP/EchoStereo.h"
 #include "DSP/PingPongEcho.h"
-
+#include "DSP/Convolution.h"
+#include "DSP/FIR_LPF.h"
+#include "DSP/FIR_LPF2.h"
+#include "DSP/IIR_HPF.h"
+#include "DSP/IIR_APF.h"
+#include "DSP/IIR_LPF.h"
+#include "DSP/IIR_LSF.h"
+#include "DSP/IIR_BPF.h"
+#include "DSP/IIR_Notch.h"
+#include "DSP/IIR_PeakFilter.h"
+#include "DSP/IIR_FirstOrderLPF.h"
+#include "DSP/IIR_FirstOrderHPF.h"
+#include "DSP/IIR_FirstOrderAPF.h"
+#include "DSP/Biquad_APF.h"
+#include "DSP/Biquad_BPF.h"
+#include "DSP/Biquad_BPF2.h"
+#include "DSP/Biquad_HPF.h"
+#include "DSP/Biquad_HSF.h"
+#include "DSP/Biquad_LPF.h"
+#include "DSP/Biquad_LSF.h"
+#include "DSP/Biquad_Notch.h"
+#include "DSP/Biquad_Peaking.h"
+#include "DSP/DirectFormII_APF.h"
+#include "DSP/DirectFormII_NestedAPF.h"
 //==============================================================================
 /**
 */
@@ -152,6 +175,30 @@ private:
     EchoFBF2 echoFBF2;
     EchoStereo echoStereo;
     PingPongEcho pingPongEcho;
+    Convolution convolution;
+    FIR_LPF firLpf;
+    FIR_LPF2 firLpf2;
+    IIR_HPF iirHpf;
+    IIR_APF iirApf;
+    IIR_LPF iirLpf;
+    IIR_LSF iirLsf;
+    IIR_BPF iirBpf;
+    IIR_Notch iirNotch;
+    IIR_PeakF iirPeak;
+    IIRFirstOrderLPF iirFoLpf;
+    IIRFirstOrderHPF iirFoHpf;
+    IIRFirstOrderAPF iirFoApf;
+    Biquad_APF biquadApf;
+    Biquad_BPF biquadBpf;
+    Biquad_BPF2 biquadBpf2;
+    Biquad_HPF biquadHpf;
+    Biquad_HSF biquadHsf;
+    Biquad_LPF biquadLpf;
+    Biquad_LSF biquadLsf;
+    Biquad_Notch biquadNotch;
+    Biquad_Peaking biquadPeaking;
+    DirectFormII_APF dfApf;
+    DirectFormII_NestedAPF dfNApf;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };
