@@ -6,6 +6,75 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="sT2le3" name="VibratoEffect.cpp" compile="1" resource="0"
+            file="Source/DSP/VibratoEffect.cpp"/>
+      <FILE id="svmiIu" name="VibratoEffect.h" compile="0" resource="0" file="Source/DSP/VibratoEffect.h"/>
+      <FILE id="yNWWQS" name="VibratoEffectExample.cpp" compile="1" resource="0"
+            file="Source/DSP/VibratoEffectExample.cpp"/>
+      <FILE id="FxBVam" name="VibratoEffectExample.h" compile="0" resource="0"
+            file="Source/DSP/VibratoEffectExample.h"/>
+      <FILE id="WvaT4r" name="SlewRateDistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/SlewRateDistortion.cpp"/>
+      <FILE id="l7W1Wx" name="SlewRateDistortion.h" compile="0" resource="0"
+            file="Source/DSP/SlewRateDistortion.h"/>
+      <FILE id="nzvF9W" name="Biquad_TDFII_Peaking.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_TDFII_Peaking.cpp"/>
+      <FILE id="ebvLDs" name="Biquad_TDFII_Peaking.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_TDFII_Peaking.h"/>
+      <FILE id="YKYPe9" name="Biquad_TDFII_Notch.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_TDFII_Notch.cpp"/>
+      <FILE id="Ifh4TP" name="Biquad_TDFII_Notch.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_TDFII_Notch.h"/>
+      <FILE id="UuWpXU" name="Biquad_TDFII_HSF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_TDFII_HSF.cpp"/>
+      <FILE id="Wbgmpo" name="Biquad_TDFII_HSF.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_TDFII_HSF.h"/>
+      <FILE id="vMYurT" name="Biquad_TDFII_LSF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_TDFII_LSF.cpp"/>
+      <FILE id="WYkB3x" name="Biquad_TDFII_LSF.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_TDFII_LSF.h"/>
+      <FILE id="rJ4Co5" name="Biquad_TDFII_HPF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_TDFII_HPF.cpp"/>
+      <FILE id="jzIV1v" name="Biquad_TDFII_HPF.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_TDFII_HPF.h"/>
+      <FILE id="nanghT" name="Biquad_TDFII_BPF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_TDFII_BPF.cpp"/>
+      <FILE id="GmUd8B" name="Biquad_TDFII_BPF.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_TDFII_BPF.h"/>
+      <FILE id="Lx6ZuR" name="Biquad_TDFII_APF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_TDFII_APF.cpp"/>
+      <FILE id="pIrKah" name="Biquad_TDFII_APF.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_TDFII_APF.h"/>
+      <FILE id="LTKRWd" name="Biquad_TDFII_LPF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_TDFII_LPF.cpp"/>
+      <FILE id="lSwyLa" name="Biquad_TDFII_LPF.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_TDFII_LPF.h"/>
+      <FILE id="fMLLXF" name="Biquad_II_Peaking.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_II_Peaking.cpp"/>
+      <FILE id="lp9xMl" name="Biquad_II_Peaking.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_II_Peaking.h"/>
+      <FILE id="rd0HKj" name="Biquad_II_Notch.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_II_Notch.cpp"/>
+      <FILE id="hLvtyA" name="Biquad_II_Notch.h" compile="0" resource="0"
+            file="Source/DSP/Biquad_II_Notch.h"/>
+      <FILE id="tnH2qU" name="Biquad_II_BPF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_II_BPF.cpp"/>
+      <FILE id="zoyYHz" name="Biquad_II_BPF.h" compile="0" resource="0" file="Source/DSP/Biquad_II_BPF.h"/>
+      <FILE id="TyBrLp" name="Biquad_II_HSF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_II_HSF.cpp"/>
+      <FILE id="pqZMd4" name="Biquad_II_HSF.h" compile="0" resource="0" file="Source/DSP/Biquad_II_HSF.h"/>
+      <FILE id="wEFQiD" name="Biquad_II_LSF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_II_LSF.cpp"/>
+      <FILE id="MrCs8Y" name="Biquad_II_LSF.h" compile="0" resource="0" file="Source/DSP/Biquad_II_LSF.h"/>
+      <FILE id="YhvKde" name="Biquad_II_APF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_II_APF.cpp"/>
+      <FILE id="HltnN5" name="Biquad_II_APF.h" compile="0" resource="0" file="Source/DSP/Biquad_II_APF.h"/>
+      <FILE id="Rwz4Dn" name="Biquad_II_HPF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_II_HPF.cpp"/>
+      <FILE id="wd3FuO" name="Biquad_II_HPF.h" compile="0" resource="0" file="Source/DSP/Biquad_II_HPF.h"/>
+      <FILE id="y03Avd" name="Biquad_II_LPF.cpp" compile="1" resource="0"
+            file="Source/DSP/Biquad_II_LPF.cpp"/>
+      <FILE id="Zsga5D" name="Biquad_II_LPF.h" compile="0" resource="0" file="Source/DSP/Biquad_II_LPF.h"/>
       <FILE id="kEpPcI" name="DirectFormII_NestedAPF.cpp" compile="1" resource="0"
             file="Source/DSP/DirectFormII_NestedAPF.cpp"/>
       <FILE id="JUauhn" name="DirectFormII_NestedAPF.h" compile="0" resource="0"

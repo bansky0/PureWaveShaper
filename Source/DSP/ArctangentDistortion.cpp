@@ -9,6 +9,7 @@
 */
 
 #include "ArctangentDistortion.h"
+
 void ArctangentDistortion::setArctangentDistortionDrive(float inArctangentDistortionDriveValue)
 {
     alpha = inArctangentDistortionDriveValue;

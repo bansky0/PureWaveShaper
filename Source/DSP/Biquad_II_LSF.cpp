@@ -1,29 +1,32 @@
 /*
   ==============================================================================
 
-    Biquad_LSF.cpp
-    Created: 1 Oct 2024 12:26:41pm
+    Biquad_II_LSF.cpp
+    Created: 7 Oct 2024 11:59:16am
     Author:  Jhonatan
 
   ==============================================================================
 */
 
-#include "Biquad_LSF.h"
-Biquad_LSF::Biquad_LSF() {}
+#include "Biquad_II_LSF.h"
+Biquad_II_LSF::Biquad_II_LSF() {}
 
-Biquad_LSF::~Biquad_LSF() {}
+Biquad_II_LSF::~Biquad_II_LSF() {}
 
-void Biquad_LSF::prepare(double inSampleRate)
+void Biquad_II_LSF::prepare(double inSampleRate)
 {
     sampleRate = inSampleRate;
     updateFilter();
 }
 
-void Biquad_LSF::process(juce::AudioBuffer<float> inBuffer)
+void Biquad_II_LSF::process(juce::AudioBuffer<float> inBuffer)
 {
-    for (int channel = 0; channel < inBuffer.getNumChannels(); channel++)
+    int numChannels = inBuffer.getNumChannels();
+    int numSamples = inBuffer.getNumSamples();
+
+    for (int channel = 0; channel < numChannels; channel++)
     {
-        for (int i = 0; i < inBuffer.getNumSamples(); i++)
+        for (int i = 0; i < numSamples; i++)
         {
             float inSample = inBuffer.getSample(channel, i);
 
@@ -34,37 +37,36 @@ void Biquad_LSF::process(juce::AudioBuffer<float> inBuffer)
     }
 }
 
-float Biquad_LSF::processSample(float inSample, int channel)
+float Biquad_II_LSF::processSample(float inSample, int channel)
 {
-    auto y = (b0 * inSample + b1 * x1[channel] + b2 * x2[channel] + (-a1) * y1[channel] + (-a2) * y2[channel]) * (1.0f / a0);
+    auto w = inSample - a1 * w1[channel] - a2 * w2[channel];
+    auto y = b0 * w + b1 * w1[channel] + b2 * w2[channel];
 
-    x2[channel] = x1[channel];
-    x1[channel] = inSample;
-    y2[channel] = y1[channel];
-    y1[channel] = y;
+    w2[channel] = w1[channel];
+    w1[channel] = w;
 
     return y;
 }
 
-void Biquad_LSF::setFrequency(float inFrequency)
+void Biquad_II_LSF::setFrequency(float inFrequency)
 {
     frequency = inFrequency;
     updateFilter();
 }
 
-void Biquad_LSF::setQ(float inQ)
+void Biquad_II_LSF::setQ(float inQ)
 {
     Q = inQ;
     updateFilter();
 }
-void Biquad_LSF::setGain(float inGain)
+void Biquad_II_LSF::setGain(float inGain)
 {
     Gain = inGain;
     updateFilter();
 }
-void Biquad_LSF::updateFilter()
+void Biquad_II_LSF::updateFilter()
 {
-    //calcular componente para un LSF
+    //calcular componente para un LPF
     w0 = (juce::MathConstants<float>::twoPi * frequency) / static_cast<float>(sampleRate);
     alpha = sinf(w0) / (2.0f * Q);
     A = sqrt(powf(10.0f, Gain / 20.0f));
@@ -76,4 +78,11 @@ void Biquad_LSF::updateFilter()
     a0 = (A + 1.0f) + ((A - 1.0f) * cosf(w0)) + (2.0f * sqrtf(A) * alpha);
     a1 = -2.0f * ((A - 1.0f) + ((A + 1.0f) * cosf(w0)));
     a2 = (A + 1.0f) + ((A - 1.0f) * cosf(w0)) - (2.0f * sqrtf(A) * alpha);
+
+    // Normaliza los coeficientes dividiendo por a0
+    b0 /= a0;
+    b1 /= a0;
+    b2 /= a0;
+    a1 /= a0;
+    a2 /= a0;
 }

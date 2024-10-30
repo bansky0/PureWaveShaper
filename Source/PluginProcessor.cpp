@@ -96,6 +96,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterGCoeficient", 1 }, "FilterGCoeficient", -1.0f, 1.0f, 0.707f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterGCoeficient2", 1 }, "FilterGCoeficient2", -1.0f, 1.0f, 0.707f));
 
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "vibratoRate", 1 }, "VibratoRate", 1.0f, 100.0f, 50.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "vibratoDepth", 1 }, "VibratoDepth", 0.0f, 500.0f, 50.0f));
+
     parameters.add(std::make_unique<juce::AudioParameterInt>(juce::ParameterID{ "wetDry", 1 }, "WetDry", 0.0f, 100.0f, 50.0f));
 
     return parameters;
@@ -210,6 +213,25 @@ void PureWaveShaperAudioProcessor::prepareToPlay (double sampleRate, int samples
     biquadLsf.prepare(sampleRate);
     biquadNotch.prepare(sampleRate);
     biquadPeaking.prepare(sampleRate);
+    biquadIILpf.prepare(sampleRate);
+    biquadIIApf.prepare(sampleRate);
+    biquadIIBpf.prepare(sampleRate);
+    biquadIIHpf.prepare(sampleRate);
+    biquadIIHsf.prepare(sampleRate);
+    biquadIILsf.prepare(sampleRate);
+    biquadIINotch.prepare(sampleRate);
+    biquadIIPeaking.prepare(sampleRate);
+    biquadTDFIILpf.prepare(sampleRate);
+    biquadTDFIIApf.prepare(sampleRate);
+    biquadTDFIIBpf.prepare(sampleRate);
+    biquadTDFIIHpf.prepare(sampleRate);
+    biquadTDFIIHsf.prepare(sampleRate);
+    biquadTDFIILsf.prepare(sampleRate);
+    biquadTDFIINotch.prepare(sampleRate);
+    biquadTDFIIPeaking.prepare(sampleRate);
+    slewRateDisto.prepare(sampleRate);
+    vibratoExample.prepare(sampleRate);
+    vibratoEffect.prepare(sampleRate);
 }
 
 void PureWaveShaperAudioProcessor::releaseResources()
@@ -311,6 +333,9 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     float inGainFilter = *apvts.getRawParameterValue("filterGain");
     float inGCoeficient = *apvts.getRawParameterValue("filterGCoeficient");
     float inGCoeficient2 = *apvts.getRawParameterValue("filterGCoeficient2");
+
+    float inRate= *apvts.getRawParameterValue("vibratoRate");
+    float inDepth = *apvts.getRawParameterValue("vibratoDepth");
 
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
@@ -432,6 +457,50 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     biquadPeaking.setGain(inGainFilter);
     dfApf.setG(inGCoeficient);
     dfNApf.setG(inGCoeficient, inGCoeficient2);
+    biquadIILpf.setFrequency(inCutOff);
+    biquadIILpf.setQ(inQFilter);
+    biquadIIApf.setFrequency(inCutOff);
+    biquadIIApf.setQ(inQFilter);
+    biquadIIBpf.setFrequency(inCutOff);
+    biquadIIBpf.setQ(inQFilter);
+    biquadIIHpf.setFrequency(inCutOff);
+    biquadIIHpf.setQ(inQFilter);
+    biquadIIHsf.setFrequency(inCutOff);
+    biquadIIHsf.setQ(inQFilter);
+    biquadIIHsf.setGain(inGainFilter);
+    biquadIILsf.setFrequency(inCutOff);
+    biquadIILsf.setQ(inQFilter);
+    biquadIILsf.setGain(inGainFilter);
+    biquadIINotch.setFrequency(inCutOff);
+    biquadIINotch.setQ(inQFilter);
+    biquadIIPeaking.setFrequency(inCutOff);
+    biquadIIPeaking.setQ(inQFilter);
+    biquadIIPeaking.setGain(inGainFilter);
+    biquadTDFIILpf.setFrequency(inCutOff);
+    biquadTDFIILpf.setQ(inQFilter);
+    biquadTDFIIApf.setFrequency(inCutOff);
+    biquadTDFIIApf.setQ(inQFilter);
+    biquadTDFIIBpf.setFrequency(inCutOff);
+    biquadTDFIIBpf.setQ(inQFilter);
+    biquadTDFIIHpf.setFrequency(inCutOff);
+    biquadTDFIIHpf.setQ(inQFilter);
+    biquadTDFIIHsf.setFrequency(inCutOff);
+    biquadTDFIIHsf.setQ(inQFilter);
+    biquadTDFIIHsf.setGain(inGainFilter);
+    biquadTDFIILsf.setFrequency(inCutOff);
+    biquadTDFIILsf.setQ(inQFilter);
+    biquadTDFIILsf.setGain(inGainFilter);
+    biquadTDFIINotch.setFrequency(inCutOff);
+    biquadTDFIINotch.setQ(inQFilter);
+    biquadTDFIIPeaking.setFrequency(inCutOff);
+    biquadTDFIIPeaking.setGain(inGainFilter);
+    biquadTDFIIPeaking.setQ(inQFilter);
+    slewRateDisto.setMaxFreq(inCutOff);
+
+    vibratoExample.setDepth(inDepth);
+    vibratoExample.setRate(inRate);
+    vibratoEffect.setDepth(inDepth);
+    vibratoEffect.setRate(inRate);
 
     wetDry.setDryWet(inWetDryValue);
 
@@ -516,7 +585,26 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //biquadNotch.process(buffer);
     //biquadPeaking.process(buffer);
     //dfApf.process(buffer);
-    dfNApf.process(buffer);
+    //dfNApf.process(buffer);
+    //biquadIILpf.process(buffer);
+    //biquadIIApf.process(buffer);
+    //biquadIIBpf.process(buffer);
+    //biquadIIHpf.process(buffer);
+    //biquadIIHsf.process(buffer);
+    //biquadIILsf.process(buffer);
+    //biquadIINotch.process(buffer);
+    //biquadIIPeaking.process(buffer);
+    //biquadTDFIILpf.process(buffer);
+    //biquadTDFIIApf.process(buffer);
+    //biquadTDFIIBpf.process(buffer);
+    //biquadTDFIIHpf.process(buffer);
+    //biquadTDFIIHsf.process(buffer);
+    //biquadTDFIILsf.process(buffer);
+    //biquadTDFIINotch.process(buffer);
+    //biquadTDFIIPeaking.process(buffer);
+    //slewRateDisto.process(buffer);
+    //vibratoExample.process(buffer);
+    vibratoEffect.process(buffer);
 
     wetDry.process(dryBuffer, buffer);
 

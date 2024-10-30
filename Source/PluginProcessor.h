@@ -77,6 +77,25 @@
 #include "DSP/Biquad_Peaking.h"
 #include "DSP/DirectFormII_APF.h"
 #include "DSP/DirectFormII_NestedAPF.h"
+#include "DSP/Biquad_II_LPF.h"
+#include "DSP/Biquad_II_APF.h"
+#include "DSP/Biquad_II_BPF.h"
+#include "DSP/Biquad_II_HPF.h"
+#include "DSP/Biquad_II_HSF.h"
+#include "DSP/Biquad_II_LSF.h"
+#include "DSP/Biquad_II_Notch.h"
+#include "DSP/Biquad_II_Peaking.h"
+#include "DSP/Biquad_TDFII_LPF.h"
+#include "DSP/Biquad_TDFII_APF.h"
+#include "DSP/Biquad_TDFII_BPF.h"
+#include "DSP/Biquad_TDFII_HPF.h"
+#include "DSP/Biquad_TDFII_HSF.h"
+#include "DSP/Biquad_TDFII_LSF.h"
+#include "DSP/Biquad_TDFII_Notch.h"
+#include "DSP/Biquad_TDFII_Peaking.h"
+#include "DSP/SlewRateDistortion.h"
+#include "DSP/VibratoEffectExample.h"
+#include "DSP/VibratoEffect.h"
 //==============================================================================
 /**
 */
@@ -199,6 +218,24 @@ private:
     Biquad_Peaking biquadPeaking;
     DirectFormII_APF dfApf;
     DirectFormII_NestedAPF dfNApf;
-
+    Biquad_II_LPF biquadIILpf;
+    Biquad_II_APF biquadIIApf;
+    Biquad_II_BPF biquadIIBpf;
+    Biquad_II_HPF biquadIIHpf;
+    Biquad_II_HSF biquadIIHsf;
+    Biquad_II_LSF biquadIILsf;
+    Biquad_II_Notch biquadIINotch;
+    Biquad_II_Peaking biquadIIPeaking;
+    Biquad_TDFII_LPF biquadTDFIILpf;
+    Biquad_TDFII_APF biquadTDFIIApf;
+    Biquad_TDFII_BPF biquadTDFIIBpf;
+    Biquad_TDFII_HPF biquadTDFIIHpf;
+    Biquad_TDFII_HSF biquadTDFIIHsf;
+    Biquad_TDFII_LSF biquadTDFIILsf;
+    Biquad_TDFII_Notch biquadTDFIINotch;
+    Biquad_TDFII_Peaking biquadTDFIIPeaking;
+    SlewRateDistortion slewRateDisto;
+    VibratoEffect vibratoExample;
+    VibratoFX vibratoEffect;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };

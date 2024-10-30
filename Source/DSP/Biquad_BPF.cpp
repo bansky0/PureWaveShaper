@@ -61,7 +61,7 @@ void Biquad_BPF::setQ(float inQ)
 
 void Biquad_BPF::updateFilter()
 {
-    //calcular componente para un LPF
+    //calcular componente para un BPF
     w0 = (juce::MathConstants<float>::twoPi * frequency) / static_cast<float>(sampleRate);
     alpha = sinf(w0) / (2.0f * Q);
 
