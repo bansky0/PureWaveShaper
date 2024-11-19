@@ -81,7 +81,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "bitReduction", 1 }, "BitReduction", 2.0f, 16.0f, 4.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "asymetricalDistortion", 1 }, "AsymetricalDistortion", -0.7f, 0.7f, 1.0f));
     
-    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayTime", 1 }, "DelayTime", 0.0f, 2.0f, 1.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayTime", 1 }, "DelayTime", 0.0f, 1.0f, 0.5f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayTime2", 1 }, "DelayTime2", 0.0f, 2.0f, 1.0f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayBPM", 1 }, "DelayBPM", 30, 120, 90));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "delayBPM2", 1 }, "DelayBPM2", 30, 120, 90));
@@ -96,8 +96,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout PureWaveShaperAudioProcessor
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterGCoeficient", 1 }, "FilterGCoeficient", -1.0f, 1.0f, 0.707f));
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "filterGCoeficient2", 1 }, "FilterGCoeficient2", -1.0f, 1.0f, 0.707f));
 
-    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "vibratoRate", 1 }, "VibratoRate", 1.0f, 100.0f, 50.0f));
-    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "vibratoDepth", 1 }, "VibratoDepth", 0.0f, 500.0f, 50.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "vibratoRate", 1 }, "VibratoRate", 1.0f, 100.0f, 50.0f)); // confirmar que trabajen en ms o samples en cada efecto.
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "vibratoDepth", 1 }, "VibratoDepth", 0.5f, 10.0f, 5.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "chorusPredelay", 1 }, "ChorusPredelay", 0.0f, 30.0f, 15.0f));
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "feedbackFlanger", 1 }, "FeedbackFlanger", 0.0f, 100.0f, 30.0f));
+
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "semitonesPitch", 1 }, "SemitonesPitch", -12.0f, 12.0f, 0.0f));
 
     parameters.add(std::make_unique<juce::AudioParameterInt>(juce::ParameterID{ "wetDry", 1 }, "WetDry", 0.0f, 100.0f, 50.0f));
 
@@ -232,6 +236,15 @@ void PureWaveShaperAudioProcessor::prepareToPlay (double sampleRate, int samples
     slewRateDisto.prepare(sampleRate);
     vibratoExample.prepare(sampleRate);
     vibratoEffect.prepare(sampleRate);
+    chorusEffect.prepare(sampleRate);
+    flangerEffect.prepare(sampleRate);
+    feedbackFlangerEffect.prepare(sampleRate);
+    barberpoleFlangerEffect.prepare(sampleRate);
+    barberpoleFlangerEffect2.prepare(sampleRate);
+    pitchDown.prepare(sampleRate);
+    pitchUp.prepare(sampleRate);
+    pitchShifter.prepare(sampleRate);
+    modulatedDelay.prepare(sampleRate);
 }
 
 void PureWaveShaperAudioProcessor::releaseResources()
@@ -336,6 +349,10 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
 
     float inRate= *apvts.getRawParameterValue("vibratoRate");
     float inDepth = *apvts.getRawParameterValue("vibratoDepth");
+    float inPredelay = *apvts.getRawParameterValue("chorusPredelay");// same values ar used to implment flanger
+    float inFeedbackFlanger = *apvts.getRawParameterValue("feedbackFlanger");
+
+    float inSemitones = *apvts.getRawParameterValue("semitonesPitch");
 
     input.setInputValue(inInputParameter);
     pan.setPanValue(inPanParameter);
@@ -502,6 +519,30 @@ void PureWaveShaperAudioProcessor::updateParameters() //ACTUALIZA LOS VALORES DE
     vibratoEffect.setDepth(inDepth);
     vibratoEffect.setRate(inRate);
 
+    chorusEffect.setDepth(inDepth);
+    chorusEffect.setRate(inRate);
+    chorusEffect.setPredelay(inPredelay);
+
+    flangerEffect.setDepth(inDepth);
+    flangerEffect.setRate(inRate);
+    flangerEffect.setPredelay(inPredelay);
+    
+    feedbackFlangerEffect.setDepth(inDepth);
+    feedbackFlangerEffect.setRate(inRate);
+    feedbackFlangerEffect.setPredelay(inPredelay);
+
+    barberpoleFlangerEffect.setDepth(inDepth);
+    barberpoleFlangerEffect.setRate(inRate);
+    barberpoleFlangerEffect.setPredelay(inPredelay);
+
+    barberpoleFlangerEffect2.setDepth(inDepth);
+    barberpoleFlangerEffect2.setRate(inRate);
+    barberpoleFlangerEffect2.setPredelay(inPredelay);
+
+    pitchShifter.setSemitones(inSemitones);
+
+    modulatedDelay.setDelay(inDelay);
+    
     wetDry.setDryWet(inWetDryValue);
 
 }
@@ -604,7 +645,16 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //biquadTDFIIPeaking.process(buffer);
     //slewRateDisto.process(buffer);
     //vibratoExample.process(buffer);
-    vibratoEffect.process(buffer);
+    //vibratoEffect.process(buffer);
+    //chorusEffect.process(buffer);
+    //flangerEffect.process(buffer);
+    //feedbackFlangerEffect.process(buffer);
+    //barberpoleFlangerEffect.process(buffer);
+    //barberpoleFlangerEffect2.process(buffer);
+    //pitchDown.process(buffer);
+    //pitchUp.process(buffer);
+    //pitchShifter.process(buffer);
+    modulatedDelay.process(buffer);
 
     wetDry.process(dryBuffer, buffer);
 

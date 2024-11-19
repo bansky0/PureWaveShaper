@@ -96,6 +96,15 @@
 #include "DSP/SlewRateDistortion.h"
 #include "DSP/VibratoEffectExample.h"
 #include "DSP/VibratoEffect.h"
+#include "DSP/ChorusEffect.h"
+#include "DSP/FlangerEffect.h"
+#include "DSP/FeedbackFlangerEffect.h"
+#include "DSP/BarberPoleFlangerEffect.h"
+#include "DSP/BarberPoleFlangerEffect2.h"
+#include "DSP/PitchDown.h"
+#include "DSP/PitchUp.h"
+#include "DSP/PitchShifter.h"
+#include "DSP/ModulatedDelay.h"
 //==============================================================================
 /**
 */
@@ -237,5 +246,14 @@ private:
     SlewRateDistortion slewRateDisto;
     VibratoEffect vibratoExample;
     VibratoFX vibratoEffect;
+    ChorusFX chorusEffect;
+    FlangerFX flangerEffect;
+    FeedbackFlangerFX feedbackFlangerEffect;
+    BarberpoleFlangerFX barberpoleFlangerEffect;
+    BarberpoleFlanger2FX barberpoleFlangerEffect2;
+    PitchDown pitchDown;
+    PitchUp pitchUp;
+    PitchShift pitchShifter;
+    ModulatedDelay modulatedDelay;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PureWaveShaperAudioProcessor)
 };

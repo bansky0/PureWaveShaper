@@ -6,6 +6,38 @@
               pluginVST3Category="Filter">
   <MAINGROUP id="RAfSwj" name="PureWaveShaper">
     <GROUP id="{B1F29D4C-81C8-4C19-D134-B07C7B327B70}" name="DSP">
+      <FILE id="ZSP7YZ" name="SimpleDelay4.cpp" compile="1" resource="0"
+            file="Source/DSP/SimpleDelay4.cpp"/>
+      <FILE id="dQ3Klw" name="SimpleDelay4.h" compile="0" resource="0" file="Source/DSP/SimpleDelay4.h"/>
+      <FILE id="RRWWq4" name="ModulatedDelay.cpp" compile="1" resource="0"
+            file="Source/DSP/ModulatedDelay.cpp"/>
+      <FILE id="UpqHYF" name="ModulatedDelay.h" compile="0" resource="0"
+            file="Source/DSP/ModulatedDelay.h"/>
+      <FILE id="gwsp20" name="PitchShifter.cpp" compile="1" resource="0"
+            file="Source/DSP/PitchShifter.cpp"/>
+      <FILE id="F1ws3t" name="PitchShifter.h" compile="0" resource="0" file="Source/DSP/PitchShifter.h"/>
+      <FILE id="vhWI7c" name="PitchUp.cpp" compile="1" resource="0" file="Source/DSP/PitchUp.cpp"/>
+      <FILE id="XXkQPc" name="PitchUp.h" compile="0" resource="0" file="Source/DSP/PitchUp.h"/>
+      <FILE id="yyzIhv" name="PitchDown.cpp" compile="1" resource="0" file="Source/DSP/PitchDown.cpp"/>
+      <FILE id="DTVoV3" name="PitchDown.h" compile="0" resource="0" file="Source/DSP/PitchDown.h"/>
+      <FILE id="gPJc6n" name="BarberPoleFlangerEffect2.cpp" compile="1" resource="0"
+            file="Source/DSP/BarberPoleFlangerEffect2.cpp"/>
+      <FILE id="nm6tEH" name="BarberPoleFlangerEffect2.h" compile="0" resource="0"
+            file="Source/DSP/BarberPoleFlangerEffect2.h"/>
+      <FILE id="u7eVvQ" name="BarberPoleFlangerEffect.cpp" compile="1" resource="0"
+            file="Source/DSP/BarberPoleFlangerEffect.cpp"/>
+      <FILE id="tRNo3s" name="BarberPoleFlangerEffect.h" compile="0" resource="0"
+            file="Source/DSP/BarberPoleFlangerEffect.h"/>
+      <FILE id="ep9WPJ" name="FeedbackFlangerEffect.cpp" compile="1" resource="0"
+            file="Source/DSP/FeedbackFlangerEffect.cpp"/>
+      <FILE id="iuQeFZ" name="FeedbackFlangerEffect.h" compile="0" resource="0"
+            file="Source/DSP/FeedbackFlangerEffect.h"/>
+      <FILE id="IIkWwT" name="FlangerEffect.cpp" compile="1" resource="0"
+            file="Source/DSP/FlangerEffect.cpp"/>
+      <FILE id="Bs3qzh" name="FlangerEffect.h" compile="0" resource="0" file="Source/DSP/FlangerEffect.h"/>
+      <FILE id="euSIhU" name="ChorusEffect.cpp" compile="1" resource="0"
+            file="Source/DSP/ChorusEffect.cpp"/>
+      <FILE id="CrK3es" name="ChorusEffect.h" compile="0" resource="0" file="Source/DSP/ChorusEffect.h"/>
       <FILE id="sT2le3" name="VibratoEffect.cpp" compile="1" resource="0"
             file="Source/DSP/VibratoEffect.cpp"/>
       <FILE id="svmiIu" name="VibratoEffect.h" compile="0" resource="0" file="Source/DSP/VibratoEffect.h"/>
