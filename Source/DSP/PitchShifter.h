@@ -3,7 +3,7 @@
 
     PitchShifter.h
     Created: 5 Nov 2024 5:17:44pm
-    Author:  Jhonatan
+    Author:  Jhonatan López
 
   ==============================================================================
 */

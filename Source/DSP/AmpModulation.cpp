@@ -3,7 +3,7 @@
 
     AmpModulation.cpp
     Created: 27 Aug 2024 2:40:42pm
-    Author:  Jhonatan
+    Author:  Jhonatan López
 
   ==============================================================================
 */

@@ -603,7 +603,7 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //echoFBF2.process(buffer);
     //echoStereo.process(buffer);
     //pingPongEcho.process(buffer);
-    //convolution.process(buffer);
+    convolution.process(buffer);
     //firLpf.process(buffer);
     //firLpf2.process(buffer);
     //iirHpf.process(buffer);
@@ -654,7 +654,7 @@ void PureWaveShaperAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     //pitchDown.process(buffer);
     //pitchUp.process(buffer);
     //pitchShifter.process(buffer);
-    modulatedDelay.process(buffer);
+    //modulatedDelay.process(buffer);
 
     wetDry.process(dryBuffer, buffer);
 
