@@ -58,6 +58,7 @@ Esta librería incluye implementaciones de algoritmos clásicos como filtros (FI
 2. **Copy the DSP folder | Copiar la carpeta DSP**
 
 Place the `DSP` folder inside the `Source` folder of your JUCE project:
+
 Coloca la carpeta `DSP` dentro de la carpeta `Source` de tu proyecto JUCE:
 
 ``` bash
@@ -69,19 +70,23 @@ ProjectName/
 
 3. **Optional: Add the Assets folder | Opcional: Añadir la carpeta Assets**
 
-If you want to use the included examples, copy the `Assets` folder next to the `Source` folder.
+If you want to use the included examples (suggested), copy the `Assets` folder next to the `Source` folder.
+
+Si se desea incluir los ejemplos (sugerido), copia la carpeta `Assets` junto a la carpeta `Source`.
 
 4. **Update Projucer | Configurar Projucer**
 
 Open your `.jucer` file in Projucer and add the `DSP` folder as part of the project. Then, rebuild the project files.
 
+Abrir el archivo `.jucer` en Projucer y añadir la carpeta `DSP` como parte del proyecto. Luego, volver a construir los archivos dle proyecto.
+
 ---
 
 ## 3. Features | Características
 
-* **Modularity | Modularidad:** Algorithms are designed for easy integration into JUCE projects.
-* **Variety | Variedad:** Includes over 90 algorithms, such as filters, modulations, distortions, and spatial effects.
-* **Optimization | Optimización:** Implemented for optimal performance, leveraging real-time processing capabilities.
+* **Modularity | Modularidad:** Algorithms are designed for easy integration into JUCE projects. | Los algoritmos están diseñados para una integración fácil en proyectos de JUCE.
+* **Variety | Variedad:** Includes over 90 algorithms, such as filters, modulations, distortions, and spatial effects. | Incluye alrededor de 90 algoritmos, como filtros, moduladores, distorsiones, y efectos espaciales.
+* **Optimization | Optimización:** Implemented for optimal performance, leveraging real-time processing capabilities. | Implementaciones para rendimiento optimo, aprovechando las capacidades de procesamiento en tiempo real.
 
 ---
 
@@ -89,46 +94,60 @@ Open your `.jucer` file in Projucer and add the `DSP` folder as part of the proj
 
 **Creating a new project | Crear un nuevo proyecto**
 
-1. Download and install JUCE from [here](https://juce.com/get-juce/).
-2. Open Projucer and create a new project:
-   * Go to `File > New Project`.
-   * Select `Plugin > Basic`.
-   * Name your project (e.g., `PureWaveExample`).
-   * Save it in your desired folder.
-3. Open the `.jucer` file to configure the project as described in the installation section.
+1. Download and install JUCE from [here](https://juce.com/get-juce/). | Descargue e instale JUCE desde [aquí](https://juce.com/get-juce/).
+2. Open Projucer and create a new project: | Abra Projucer y cree un nuevo proyecto:
+   * Go to `File > New Project`. | Vaya a `Archivo > Nuevo Proyecto`.
+   * Select `Plugin > Basic`. | Seleccione `Complemento> Básico`.
+   * Name your project (e.g., `PureWaveExample`). | Asigne un nombre a su proyecto (por ejemplo, `PureWaveExample`).
+   * Save it in your desired folder. | Guárdelo en la carpeta que desee.
+3. Open the `.jucer` file to configure the project as described in the installation section. | Abra el archivo `.jucer` para configurar el proyecto como se describe en la sección de instalación.
 
 **Adding the DSP library | Agregar la librería DSP**
 
 Follow the steps in the Installation section to add the `DSP` folder to your project.
+
+Siga los pasos en la sección Instalación para agregar la carpeta `DSP` a su proyecto.
 
 ---
 
 ## 5. List of Algorithms | Lista de Algoritmos
 
 The library includes a wide range of algorithms categorized as follows:
+
 La librería incluye una amplia gama de algoritmos categorizados como sigue:
 
 **Filters | Filtros**
-FIR: FIR_LPF, FIR_LPF2
-IIR: IIR_HPF, IIR_LPF, IIR_Notch
-Biquad: Biquad_LPF, Biquad_HPF, Biquad_Notch
+
+- FIR: FIR_LPF, FIR_LPF2
+- IIR: IIR_HPF, IIR_LPF, IIR_Notch
+- Biquad: Biquad_LPF, Biquad_HPF, Biquad_Notch
+
 **Modulations | Modulaciones**
-VibratoEffect
-ChorusEffect
-BarberPoleFlangerEffect
+
+- VibratoEffect
+- ChorusEffect
+- BarberPoleFlangerEffect
+
 **Distortions | Distorsiones**
-HardClipping
-ExponentialDistortion
-ArctangentDistortion
+
+- HardClipping
+- ExponentialDistortion
+- ArctangentDistortion
+
 **Delay Effects | Efectos de Retardo**
-SimpleDelay
-PingPongEcho
-ModularDelay
+
+- SimpleDelay
+- PingPongEcho
+- ModularDelay
+
 **Wave Generators | Generadores de Ondas**
-SineWave
-SquareWave
-ImpulseTrain
+
+- SineWave
+- SquareWave
+- ImpulseTrain
+
 (See the full list in Documentation/AlgorithmList.md.)
+
 (Consulta la lista completa en Documentation/AlgorithmList.md.)
 
 ---
@@ -151,11 +170,13 @@ Si deseas contribuir:
 
 ## 7. Acknowledgments | Agradecimientos**
 
-* Thanks to the JUCE team for their framework.
+* Thanks to the JUCE team for their framework. | Gracias al equipo JUCE por su marco. 
 
-* Key references:
+* Key references: | Referencias clave:
 
     Hack Audio: An Introduction to Computer Programming and Digital Signal Processing in MATLAB (E. Tarr, 2018).
+
+---
 
 ## 8. Contact | Contacto
 
